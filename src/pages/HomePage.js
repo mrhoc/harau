@@ -1,33 +1,72 @@
-import { Pagination } from 'antd';
-import Sidebar from '../layout/Sidebar';
+import { Carousel } from 'antd';
 import axios from 'axios';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
+const contentStyle = {
+    height: '160px',
+    color: '#fff',
+    lineHeight: '160px',
+    textAlign: 'center',
+    background: '#364d79',
+};
 const HomePage = () => {
-    const [bestPrice,setbestPrice]= useState([]);
+    const [bestPrice, setbestPrice] = useState([]);
+    const [banners, setbanners] = useState([]);
 
     useEffect(() => {
         var config = {
             method: 'get',
             url: '/api/products/top-sale',
-          };
-          axios(config)
-          .then(function (response) {
-            setbestPrice(response.data)
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      }, []);
+        };
+        axios(config)
+            .then(function (response) {
+                setbestPrice(response.data)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, []);
+
+    // banners
+    useEffect(() => {
+        var config = {
+            method: 'get',
+            url: '/api/banners',
+        };
+        axios(config)
+            .then(function (response) {
+                setbanners(response.data)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, []);
+
+   
     return (
         <>
+            <div className='ant-row CarouselBanner__BannerSliderRow-sc-45hni4-1 cPLAsG'>
+            <div className='CarouselBanner__BannerSliderWrapper-sc-45hni4-0 fSVfiM'>
+            <Carousel autoplay>
+                {
+                    banners&&banners.map(banner=> <div className='slider' key={banner.key}>
+                    <a href={banner.link}>
+                        <img src={banner.imageUrl}></img>
+                    </a>
+                </div>)
+                }
+               
+                
+            </Carousel>
+            </div>
+            </div>
             <div className="ShowcaseWidget__WidgetWrapper-jbddbf-1 kAkMuC">
+
                 <div className="ShowcaseWidget__SectionTitle-jbddbf-0 cMedBm">
                     <h4 className="ant-typography">Giảm Giá</h4>
                     <a href="/market?tags=BEST_DEALS"><span>Xem tất cả</span></a>
                 </div>
                 <div className="ShowcaseWidget__List-jbddbf-2 eYhdLP">
-                    
-                    <div className="ShowcaseWidget__Item-jbddbf-3 enmLXv">
+                    {bestPrice.length!==0 ? bestPrice.map(item=> <div className="ShowcaseWidget__Item-jbddbf-3 enmLXv" key={item.id}>
                         <article title="" className="Card-gwofcb-0 MarketItem__Container-rr0c4s-0 gpLETI">
                             <div className="CardLink__Container-dqor2y-0 jRvebg">
                                 <div className="MarketItem__CardLinkContent-rr0c4s-3 dzitPw">
@@ -93,13 +132,14 @@ const HomePage = () => {
                                 </div>
                             </div>
                         </article>
-                    </div>
-                    
+                    </div>):'Khong co san pham nao'}
+                   
+
                 </div>
             </div>
 
 
-            <Pagination defaultCurrent={1} total={50} />
+
         </>
     )
 }

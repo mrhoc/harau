@@ -1692,3 +1692,48 @@ img {
     padding:0
   }
 }
+
+.fSVfiM .ant-carousel, .fSVfiM .slick-slider, .fSVfiM .slick-list, .fSVfiM .slick-track, .fSVfiM .slick-slide > div {
+  height: 100%;
+}
+.itDjDY {
+  height: 100%;
+  position: relative;
+}
+.fZbtUm {
+  height: 100%;
+  position: relative;
+  background: url(https://s3-ap-southeast-1.amazonaws.com/images.kamereo.vn/supplier/654/BANNER/CP/CP-VI.png) center center / cover no-repeat;
+  cursor: pointer;
+}
+.ant-row {
+  position: relative;
+  height: auto;
+  margin-right: 0;
+  margin-left: 0;
+  zoom: 1;
+  display: block;
+  box-sizing: border-box;
+}
+.cPLAsG.ant-row {
+  height: 556px;
+  /* height: 300px; */
+}
+.fSVfiM {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.slider img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.ant-carousel .slick-dots{
+  z-index: 33;
+  padding: 20px 0px;
+}

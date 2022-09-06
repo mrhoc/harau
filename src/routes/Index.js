@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 import HomePage from "../pages/HomePage";
 import Market from "../pages/Market";
-import { Pagination } from 'antd';
+
 import Sidebar from '../layout/Sidebar';
 import ListCategories from "../layout/ListCategories";
 
