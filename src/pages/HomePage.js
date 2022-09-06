@@ -1,6 +1,23 @@
 import { Pagination } from 'antd';
 import Sidebar from '../layout/Sidebar';
+import axios from 'axios';
+import { useEffect,useState } from 'react';
 const HomePage = () => {
+    const [bestPrice,setbestPrice]= useState([]);
+
+    useEffect(() => {
+        var config = {
+            method: 'get',
+            url: '/api/products/top-sale',
+          };
+          axios(config)
+          .then(function (response) {
+            setbestPrice(response.data)
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }, []);
     return (
         <>
             <div className="ShowcaseWidget__WidgetWrapper-jbddbf-1 kAkMuC">
@@ -9,8 +26,9 @@ const HomePage = () => {
                     <a href="/market?tags=BEST_DEALS"><span>Xem tất cả</span></a>
                 </div>
                 <div className="ShowcaseWidget__List-jbddbf-2 eYhdLP">
+                    
                     <div className="ShowcaseWidget__Item-jbddbf-3 enmLXv">
-                        <article title="Best Price - Combo 10 Vỉ Trứng Gà CP Size XL + 1 chai dầu ăn cái lân 1L" className="Card-gwofcb-0 MarketItem__Container-rr0c4s-0 gpLETI">
+                        <article title="" className="Card-gwofcb-0 MarketItem__Container-rr0c4s-0 gpLETI">
                             <div className="CardLink__Container-dqor2y-0 jRvebg">
                                 <div className="MarketItem__CardLinkContent-rr0c4s-3 dzitPw">
                                     <button type="button" className="ant-btn Button-jgr7l8-0 Favorite-tn0i37-1 hrXIPJ ant-btn-secondary ant-btn-circle">
