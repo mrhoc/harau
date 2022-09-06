@@ -15,7 +15,9 @@ const Header = () => {
                     <div className="TopNav__TopNavItem-sc-1g6u0p6-6 gUpPpB">
                         <div className="SVGIcon-uyvh4z-0 TopNav__NavToggleIcon-sc-1g6u0p6-2 fAFphR" onClick={()=> { handleOpenMenu() }}>
                             <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width={24} height={18} viewBox="0 0 24 18" fill="none"
+                                {isOpenMenu?<svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 16 16" fill="none" className="injected-svg" data-src="/static/media/Close.caff5704.svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+  <path d="M15.0115 0.378816C14.5065 -0.126272 13.6876 -0.126272 13.1825 0.378816L8.00003 5.56125L2.8176 0.378816C2.31251 -0.126272 1.4936 -0.126271 0.98851 0.378816L0.378816 0.988511C-0.126272 1.4936 -0.126272 2.31251 0.378816 2.81759L5.56125 8.00003L0.378876 13.1824C-0.126212 13.6875 -0.126211 14.5064 0.378876 15.0115L0.98857 15.6212C1.49366 16.1263 2.31257 16.1263 2.81766 15.6212L8.00003 10.4388L13.1824 15.6212C13.6875 16.1263 14.5064 16.1263 15.0115 15.6212L15.6212 15.0115C16.1263 14.5064 16.1263 13.6875 15.6212 13.1824L10.4388 8.00003L15.6212 2.81759C16.1263 2.31251 16.1263 1.4936 15.6212 0.98851L15.0115 0.378816Z" fill="#2F904F" />
+</svg>:<svg xmlns="http://www.w3.org/2000/svg" width={24} height={18} viewBox="0 0 24 18" fill="none"
                                     className="injected-svg" data-src="/static/media/Hambuger.c5fd2d63.svg"
                                     xmlnsXlink="http://www.w3.org/1999/xlink">
                                     <path
@@ -28,6 +30,8 @@ const Header = () => {
                                         d="M22.2496 14.4H1.75041C0.777958 14.4 0 14.9926 0 15.7333C0 16.4741 0.777958 17.0667 1.75041 17.0667H22.2496C23.222 17.0667 24 16.4741 24 15.7333C24 14.9926 23.222 14.4 22.2496 14.4Z"
                                         fill="#2F904F" />
                                 </svg>
+}
+                                
                             </div>
                         </div>
                     </div>
