@@ -4,13 +4,16 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import { AppContext } from '../providers/Index';
 const ListCategories = () => {
+    const initActive={
+        "key": "all",
+        "name":"Chợ"
+    }
     const [categories, setCategories] = useState([]);
- 
     const useAppContext=useContext(AppContext)
-    const {productsCat,setproductsCat,activeCat,setactiveCat}=useAppContext;
+    const {activeCat,setactiveCat}=useAppContext;
     
     useEffect(() => {
-        setactiveCat('')
+    
         var config = {
             method: 'get',
             url: '/api/categories',
@@ -23,12 +26,17 @@ const ListCategories = () => {
                 console.log(error);
             });
     }, []);
+
+    const hanleSelectedCat=(cat)=>{
+        setactiveCat(cat);
+    }
+    console.log('activeCat:',activeCat);
     return (
         <div id="category" className="desktop__CategoryWrapper-sc-1ligtl5-6 kZalnp">
             <nav className="desktop__CategoryNavContainer-sc-1ligtl5-4 eImZgp">
                 <ul className="ant-menu ant-menu-light ant-menu-root ant-menu-vertical" role="menu">
-                    <li onClick={() => { setactiveCat('all') }} className={`${activeCat == 'all' && 'selected'} ant-menu-submenu ant-menu-submenu-vertical desktop__SubMenu-sc-1ligtl5-8 jpyfpc`} role="menuitem">
-                        <div className="ant-menu-submenu-title selected" aria-expanded="false" aria-haspopup="true"><Link to="/market">
+                    <li onClick={() => { hanleSelectedCat(initActive) }} className={`${activeCat.key === 'all' && 'selected'} ant-menu-submenu ant-menu-submenu-vertical desktop__SubMenu-sc-1ligtl5-8 jpyfpc`} role="menuitem">
+                        <div className="ant-menu-submenu-title selected" ><Link to="/market">
                             <div className="desktop__LabelWrapper-sc-1ligtl5-3 BLWCH">
                                 <div className="SVGIcon-uyvh4z-0 desktop__Icon-sc-1ligtl5-0 bYInAU">
                                     <div>
@@ -42,9 +50,9 @@ const ListCategories = () => {
                             </div>
                         </Link><i className="ant-menu-submenu-arrow" /></div>
                     </li>
-                    {categories && categories.map(category => <li onClick={() => { setactiveCat(category.key) }} className={`${activeCat == category.key && 'selected'} ant-menu-submenu ant-menu-submenu-vertical desktop__SubMenu-sc-1ligtl5-8 jpyfpc`} role="menuitem">
-                        <div className="ant-menu-submenu-title" aria-expanded="false" aria-haspopup="true">
-                            <Link to={`/market?category=${category.key}`}>
+                    {categories && categories.map(category => <li key={category.key} onClick={() => { hanleSelectedCat(category) }} className={`${activeCat.key === category.key && 'selected'} ant-menu-submenu ant-menu-submenu-vertical desktop__SubMenu-sc-1ligtl5-8 jpyfpc`} role="menuitem">
+                        <div className="ant-menu-submenu-title">
+                            <Link to={`/market?category=${category.code}`}>
                                 <div className="desktop__LabelWrapper-sc-1ligtl5-3 BLWCH">
                                     <div className="SVGIcon-uyvh4z-0 desktop__Icon-sc-1ligtl5-0 bYInAU">
                                         <div>
