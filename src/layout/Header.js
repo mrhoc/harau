@@ -8,7 +8,7 @@ const Header = () => {
     const handleOpenMenu = () => {
         setisOpenMenu(!isOpenMenu);
     }
-    console.log(isOpenMenu);
+    
     return (
         <header className="TopNav__TopNavWrapper-sc-1g6u0p6-16 hhDmbf">
             <div className="TopNav__TopNavContent-sc-1g6u0p6-21 gGaWuG">

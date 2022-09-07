@@ -6,7 +6,7 @@ import { AppContext } from '../providers/Index';
 
 const Market = () => {
     const useAppContext=useContext(AppContext)
-    const {products,setproducts,productsCat,setproductsCat}=useAppContext;
+    const {products,setproducts,productsCat,setproductsCat,activeCat}=useAppContext;
     useEffect(() => {
         var config = {
             method: 'get',
@@ -21,6 +21,13 @@ const Market = () => {
                 console.log(error);
             });
     }, []);
+
+    useEffect(() => {
+        const productsCattmp= products.filter(item => item.categoryKey.includes(activeCat));
+        console.log('productsCattmp',productsCattmp);
+    }, [activeCat]);
+
+    console.log('products',products);
 
     return (
         <>

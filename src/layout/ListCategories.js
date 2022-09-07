@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom'
 import { AppContext } from '../providers/Index';
 const ListCategories = () => {
     const [categories, setCategories] = useState([]);
-    const [activeCat, setactiveCat] = useState('')
+ 
     const useAppContext=useContext(AppContext)
-    const {productsCat,setproductsCat}=useAppContext;
+    const {productsCat,setproductsCat,activeCat,setactiveCat}=useAppContext;
+    
     useEffect(() => {
         setactiveCat('')
         var config = {
