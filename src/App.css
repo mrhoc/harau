@@ -1737,3 +1737,7 @@ img {
   z-index: 33;
   padding: 20px 0px;
 }
+
+.jpyfpc.selected .ant-menu-submenu-title a, .jpyfpc:hover .ant-menu-submenu-title a{
+  background-color: rgba(47, 144, 79, 0.2);
+}

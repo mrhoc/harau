@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import logo from '../assets/images/logo.png'
 import { AppContext } from '../providers/Index';
+import { Link } from 'react-router-dom';
 const Header = () => {
     const useAppContext=useContext(AppContext);
     const {isOpenMenu,setisOpenMenu}=useAppContext;
@@ -35,13 +36,13 @@ const Header = () => {
                             </div>
                         </div>
                     </div>
-                    <a className="TopNav__TopNavLinkItem-sc-1g6u0p6-7 eofORe" href="/">
+                    <Link className="TopNav__TopNavLinkItem-sc-1g6u0p6-7 eofORe" to="/">
                         <div className="TopNav__KamereoLogo-sc-1g6u0p6-0 dCAXhN">
                             <div>
                                 <img src={logo} width='160px' />
                             </div>
                         </div>
-                    </a>
+                    </Link>
                 </nav>
                 <nav className="TopNav__MiddleNav-sc-1g6u0p6-18 dvueth">
                     <div className="TopNav__InputContainer-sc-1g6u0p6-12 ekjCbP">
@@ -54,7 +55,7 @@ const Header = () => {
                     </div>
                 </nav>
                 <nav className="TopNav__RightNav-sc-1g6u0p6-19 ldzGYq">
-                    <a className="TopNav__TopNavLinkItem-sc-1g6u0p6-7 bUlzUw" href="/signin">
+                    <Link className="TopNav__TopNavLinkItem-sc-1g6u0p6-7 bUlzUw" to="/signin">
                         <div className="SVGIcon-uyvh4z-0 bQEYqa">
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width={24} fill="none" viewBox="0 0 24 24" className="injected-svg"
@@ -70,11 +71,11 @@ const Header = () => {
                                 </svg>
                             </div>
                         </div>
-                    </a>
-                    <div className="TopNav__TopNavButton-sc-1g6u0p6-8 girgsR"><a className="TopNav__LinkText-sc-1g6u0p6-3 qLQav"
-                        href="/signin"><span>Đăng nhập</span></a></div>
-                    <div className="TopNav__TopNavButton-sc-1g6u0p6-8 girgsR"><a className="TopNav__LinkText-sc-1g6u0p6-3 qLQav"
-                        href="/contact-us"><span>Đăng ký</span></a></div>
+                    </Link>
+                    <div className="TopNav__TopNavButton-sc-1g6u0p6-8 girgsR"><Link className="TopNav__LinkText-sc-1g6u0p6-3 qLQav"
+                        to="/signin"><span>Đăng nhập</span></Link></div>
+                    <div className="TopNav__TopNavButton-sc-1g6u0p6-8 girgsR"><Link className="TopNav__LinkText-sc-1g6u0p6-3 qLQav"
+                        to="/contact-us"><span>Đăng ký</span></Link></div>
                 </nav>
             </div>
         </header>
