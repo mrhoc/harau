@@ -4,7 +4,7 @@ import { AppContext } from '../providers/Index';
 import { Link } from 'react-router-dom';
 const Header = () => {
     const useAppContext=useContext(AppContext);
-    const {isOpenMenu,setisOpenMenu,products,setproducts,productsCat,setproductsCat}=useAppContext;
+    const {isOpenMenu,setisOpenMenu,products,setproductsCat,setactiveCat,settxtSearch,txtSearch}=useAppContext;
     const handleOpenMenu = () => {
         setisOpenMenu(!isOpenMenu);
     }
@@ -19,8 +19,9 @@ const Header = () => {
         console.log(v);
         const dataS = products&&products.filter(item => removeAccents(item.name).toLowerCase().includes(removeAccents(v).toLowerCase()));
         setproductsCat(dataS);
+        settxtSearch(v)
     }
-    
+    console.log(txtSearch);
     return (
         <header className="TopNav__TopNavWrapper-sc-1g6u0p6-16 hhDmbf">
             <div className="TopNav__TopNavContent-sc-1g6u0p6-21 gGaWuG">
@@ -48,7 +49,7 @@ const Header = () => {
                             </div>
                         </div>
                     </div>
-                    <Link className="TopNav__TopNavLinkItem-sc-1g6u0p6-7 eofORe" to="/">
+                    <Link className="TopNav__TopNavLinkItem-sc-1g6u0p6-7 eofORe" to="/" onClick={()=>{setactiveCat('')}}>
                         <div className="TopNav__KamereoLogo-sc-1g6u0p6-0 dCAXhN">
                             <div>
                                 <img src={logo} width='160px' />
@@ -61,7 +62,7 @@ const Header = () => {
                         <span
                             className="ant-input-search TopNav__AntdInput-sc-1g6u0p6-1 kNCBli ant-input-search-enter-button ant-input-search-default ant-input-group-wrapper">
                             <span className="ant-input-wrapper ant-input-group">
-                                <input onChange={(e)=>{handleChange(e.target.value)}} placeholder="Tìm kiếm trong Chợ" className="ant-input" type="text" defaultValue />
+                                <input onChange={(e)=>{handleChange(e.target.value)}} placeholder="Tìm kiếm trong Chợ" className="ant-input" type="text" value={txtSearch} />
                                 <span className="ant-input-group-addon"><button type="button"
                                     className="ant-btn ant-input-search-button ant-btn-primary"><span>Tìm</span></button></span></span></span>
                     </div>

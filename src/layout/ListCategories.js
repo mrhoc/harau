@@ -33,10 +33,7 @@ const ListCategories = () => {
     }
     console.log(activeCat);
     
-    // const navi=useNavigate();
-    // useEffect(() => {
-    //     setactiveCat('')
-    // }, [navi('/')]);
+   
 
     return (
         <div id="category" className="desktop__CategoryWrapper-sc-1ligtl5-6 kZalnp">
