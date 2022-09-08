@@ -1,37 +1,13 @@
 import React, { useContext } from 'react';
-import { Pagination } from 'antd';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { AppContext } from '../providers/Index';
-
-const Market = () => {
+import {removeAccents} from '../services/Untils'
+const Search = () => {
     const useAppContext = useContext(AppContext)
-    const { products, setproducts, activeCat,setproductsCat } = useAppContext;
-    useEffect(() => {
-        var config = {
-            method: 'get',
-            url: '/api/products/',
-        };
-        axios(config)
-            .then(function (response) {
-                let dt = response.data
-                setproducts(dt.data)
-                setproductsCat(dt.data)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }, []);
-
+    const { products, txtSearch } = useAppContext;
+   console.log(txtSearch);
     const renderProducts = () => {
-       
-        var dataS;
-        if (activeCat.key === 'all') {
-            dataS = products;
-        }
-        else {
-            dataS = products && products.filter(item => item.categoryKey.includes(activeCat.key));
-        }
+        var dataS = products && products.filter(item => removeAccents(item.name).toLowerCase().includes(removeAccents(txtSearch).toLowerCase()));
+        console.log(dataS);
         return dataS && dataS.map(product => <div key={product.key} className="ant-col ant-col-md-8 ant-col-xl-6" style={{ padding: 12 }}>
             <article title={product.name} className="Card-gwofcb-0 MarketItem__Container-rr0c4s-0 gpLETI">
                 <div className="CardLink__Container-dqor2y-0 jRvebg">
@@ -95,19 +71,15 @@ const Market = () => {
         </div>)
     }
 
+    return <>
+        <div className="PageHeader__Container-sc-19x4r8h-1 fVgVuB">
+            <h2 className="PageHeader__Header-sc-19x4r8h-0 jTfioR">Chợ</h2>
+        </div>
+        <div className="ant-row MarketPage__ProductListRow-x35qcj-4 eUijMD" style={{ margin: '-12px' }}>
+            {renderProducts()}
+        </div>
 
-    return (
-
-        <>
-            <div className="PageHeader__Container-sc-19x4r8h-1 fVgVuB">
-                <h2 className="PageHeader__Header-sc-19x4r8h-0 jTfioR">{activeCat.key == 'all' ? 'Chợ' : activeCat.name}</h2>
-            </div>
-            <div className="ant-row MarketPage__ProductListRow-x35qcj-4 eUijMD" style={{ margin: '-12px' }}>
-                {renderProducts()}
-            </div>
-
-        </>
-    );
+    </>
 }
 
-export default Market;
+export default Search;

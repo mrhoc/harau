@@ -6,6 +6,8 @@ import Sidebar from '../layout/Sidebar';
 import ListCategories from "../layout/ListCategories";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
+import Search from "../pages/Search";
+
 
 const RouteApp = () => {
     return (
@@ -24,6 +26,7 @@ const RouteApp = () => {
                                 <Route path="/market" element={<Market />} />
                                 <Route path="/signin" element={<Login />} />
                                 <Route path="/contact-us" element={<Register />} />
+                                <Route path="/search-result" element={<Search />} />
                             </Routes>
                         </div>
                     </div>

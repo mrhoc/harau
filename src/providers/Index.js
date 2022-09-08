@@ -5,6 +5,7 @@ export const AppContext = createContext();
 const AppProviders = ({ children }) => {
    const [isOpenMenu, setisOpenMenu] = useState(false)
    const [products, setproducts] = useState([])
+   const [productsCat, setproductsCat] = useState([])
    const [activeCat, setactiveCat] = useState({})
    const [txtSearch, settxtSearch] = useState('')
 
@@ -13,6 +14,7 @@ const AppProviders = ({ children }) => {
          isOpenMenu, setisOpenMenu,
          txtSearch, settxtSearch,
          products, setproducts,
+         productsCat, setproductsCat,
          activeCat,setactiveCat
       }
    }>

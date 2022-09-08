@@ -4,21 +4,14 @@ import { AppContext } from '../providers/Index';
 import { Link } from 'react-router-dom';
 const Header = () => {
     const useAppContext=useContext(AppContext);
-    const {isOpenMenu,setisOpenMenu,products,setproductsCat,setactiveCat,settxtSearch,txtSearch}=useAppContext;
+    const {isOpenMenu,setisOpenMenu,setactiveCat,settxtSearch,txtSearch}=useAppContext;
     const handleOpenMenu = () => {
         setisOpenMenu(!isOpenMenu);
     }
 
-    function removeAccents(str) {
-        return str.normalize('NFD')
-                  .replace(/[\u0300-\u036f]/g, '')
-                  .replace(/đ/g, 'd').replace(/Đ/g, 'D');
-      }
+    
 
     const handleChange=(v)=>{
-        console.log(v);
-        const dataS = products&&products.filter(item => removeAccents(item.name).toLowerCase().includes(removeAccents(v).toLowerCase()));
-        setproductsCat(dataS);
         settxtSearch(v)
     }
     console.log(txtSearch);
@@ -63,8 +56,8 @@ const Header = () => {
                             className="ant-input-search TopNav__AntdInput-sc-1g6u0p6-1 kNCBli ant-input-search-enter-button ant-input-search-default ant-input-group-wrapper">
                             <span className="ant-input-wrapper ant-input-group">
                                 <input onChange={(e)=>{handleChange(e.target.value)}} placeholder="Tìm kiếm trong Chợ" className="ant-input" type="text" value={txtSearch} />
-                                <span className="ant-input-group-addon"><button type="button"
-                                    className="ant-btn ant-input-search-button ant-btn-primary"><span>Tìm</span></button></span></span></span>
+                                <span className="ant-input-group-addon"><Link to='/search-result'
+                                    className="ant-btn ant-input-search-button ant-btn-primary"><span>Tìm</span></Link></span></span></span>
                     </div>
                 </nav>
                 <nav className="TopNav__RightNav-sc-1g6u0p6-19 ldzGYq">
