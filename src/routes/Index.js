@@ -4,6 +4,8 @@ import Market from "../pages/Market";
 
 import Sidebar from '../layout/Sidebar';
 import ListCategories from "../layout/ListCategories";
+import Register from "../pages/Register";
+import Login from "../pages/Login";
 
 const RouteApp = () => {
     return (
@@ -20,6 +22,8 @@ const RouteApp = () => {
                             <Routes>
                                 <Route path="/" element={<HomePage />} />
                                 <Route path="/market" element={<Market />} />
+                                <Route path="/signin" element={<Login />} />
+                                <Route path="/contact-us" element={<Register />} />
                             </Routes>
                         </div>
                     </div>
