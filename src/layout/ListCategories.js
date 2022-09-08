@@ -1,16 +1,17 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import { AppContext } from '../providers/Index';
 const ListCategories = () => {
     const initActive={
         "key": "all",
-        "name":"Chợ"
+        "name":"Chợ",
+        
     }
     const [categories, setCategories] = useState([]);
     const useAppContext=useContext(AppContext)
-    const {activeCat,setactiveCat}=useAppContext;
+    const {activeCat,setactiveCat,setproductsCat,products}=useAppContext;
     
     useEffect(() => {
     
@@ -30,12 +31,18 @@ const ListCategories = () => {
     const hanleSelectedCat=(cat)=>{
         setactiveCat(cat);
     }
-    console.log('activeCat:',activeCat);
+    console.log(activeCat);
+    
+    // const navi=useNavigate();
+    // useEffect(() => {
+    //     setactiveCat('')
+    // }, [navi('/')]);
+
     return (
         <div id="category" className="desktop__CategoryWrapper-sc-1ligtl5-6 kZalnp">
             <nav className="desktop__CategoryNavContainer-sc-1ligtl5-4 eImZgp">
                 <ul className="ant-menu ant-menu-light ant-menu-root ant-menu-vertical" role="menu">
-                    <li onClick={() => { hanleSelectedCat(initActive) }} className={`${activeCat.key === 'all' && 'selected'} ant-menu-submenu ant-menu-submenu-vertical desktop__SubMenu-sc-1ligtl5-8 jpyfpc`} role="menuitem">
+                    <li onClick={() => { hanleSelectedCat(initActive) }} className={`${activeCat.key === 'all'&& 'selected' } ant-menu-submenu ant-menu-submenu-vertical desktop__SubMenu-sc-1ligtl5-8 jpyfpc`} role="menuitem">
                         <div className="ant-menu-submenu-title selected" ><Link to="/market">
                             <div className="desktop__LabelWrapper-sc-1ligtl5-3 BLWCH">
                                 <div className="SVGIcon-uyvh4z-0 desktop__Icon-sc-1ligtl5-0 bYInAU">

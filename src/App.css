@@ -1691,6 +1691,9 @@ img {
   .kAkMuC{
     padding:0
   }
+  .ant-col{
+    width: 100%;
+  }
 }
 
 .fSVfiM .ant-carousel, .fSVfiM .slick-slider, .fSVfiM .slick-list, .fSVfiM .slick-track, .fSVfiM .slick-slide > div {
@@ -1741,3 +1744,4 @@ img {
 .jpyfpc.selected .ant-menu-submenu-title a, .jpyfpc:hover .ant-menu-submenu-title a{
   background-color: rgba(47, 144, 79, 0.2);
 }
+

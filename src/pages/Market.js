@@ -25,17 +25,18 @@ const Market = () => {
     },[]);
     
     useEffect(()=>{    
-       var dataS;
-        if(activeCat.key==='all'){
-             dataS = products&&products.filter(item => item.categoryKey);
-        }
-        else{
-             dataS = products&&products.filter(item => item.categoryKey.includes(activeCat.key));          
-        }
-        setproductsCat(dataS);
-    },[activeCat])
+        var dataS;
+         if(activeCat.key==='all'){
+              dataS = products&&products.filter(item => item.categoryKey);
+         }
+         else{
+              dataS = products&&products.filter(item => item.categoryKey.includes(activeCat.key));          
+         }
+         console.log('dataS',dataS);
+         setproductsCat(dataS);
+     },[activeCat])
+    console.log('productsCat:',productsCat);
     
-   
     return (
         <>
             <div className="PageHeader__Container-sc-19x4r8h-1 fVgVuB">
@@ -64,7 +65,7 @@ const Market = () => {
                                                 </div>
                                                 <div style={{ flex: '1 1 0%' }}>
                                                     <div className="DetailsContainer__DetailsContainerInner-ignkyn-0 cMtGcM">
-                                                        <h3 title="Ba Rọi Heo Cắt Lát Đông Lạnh 2mm NH Foods (1kg/túi)" className="Details__Header-deqbu8-1 kvvVZC">
+                                                        <h3 title={product.name} className="Details__Header-deqbu8-1 kvvVZC">
                                                             <div className="Details__Title-deqbu8-0 ekhIHk">{product.name}
                                                             </div>
                                                         </h3>

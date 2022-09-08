@@ -49,7 +49,7 @@ const HomePage = () => {
                 console.log(error);
             });
     }, []);
-
+   
 
     return (
         <>
