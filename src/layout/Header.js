@@ -3,9 +3,13 @@ import logo from '../assets/images/logo.png'
 import { AppContext } from '../providers/Index';
 import { Link } from 'react-router-dom';
 import {removeAccents} from '../services/Untils'
+import { Dropdown, Menu, Space } from 'antd';
+import { DownOutlined, SmileOutlined,LogoutOutlined } from '@ant-design/icons';
+
 const Header = () => {
     const useAppContext=useContext(AppContext);
-    const {isOpenMenu,setisOpenMenu,setactiveCat,settxtSearch,txtSearch,setproductsCat,products}=useAppContext;
+    const {isOpenMenu,setisOpenMenu,setactiveCat,settxtSearch,txtSearch,setproductsCat,products,
+    isLogin,setisLogin}=useAppContext;
     const handleOpenMenu = () => {
         setisOpenMenu(!isOpenMenu);
     }
@@ -15,6 +19,33 @@ const Header = () => {
         setproductsCat(dataS)
         settxtSearch(v)
     }
+
+
+    const menu = (
+        <Menu
+          items={[
+            {
+              key: '1',
+              label: (
+                <a  rel="noopener noreferrer" href="/">
+                  Thông tin tài khoản
+                </a>
+              ),
+            },
+            {
+              key: '2',
+              label: (
+                <Link rel="noopener noreferrer" to="/signin" onClick={()=>{setisLogin(false)}}>
+                  Đăng xuất
+                </Link>
+              ),
+              icon: <LogoutOutlined />,
+              disabled: false,
+            }
+          ]}
+        />
+      );
+
 
     return (
         <header className="TopNav__TopNavWrapper-sc-1g6u0p6-16 hhDmbf">
@@ -61,6 +92,38 @@ const Header = () => {
                                     className="ant-btn ant-input-search-button ant-btn-primary"><span>Tìm</span></Link></span></span></span>
                     </div>
                 </nav>
+                
+                {isLogin?
+                // login menu
+                <nav className="TopNav__RightNav-sc-1g6u0p6-19 ldzGYq">
+                    <Link className="TopNav__TopNavLinkItem-sc-1g6u0p6-7 bUlzUw" to="/Checkout">
+                        <div className="SVGIcon-uyvh4z-0 bQEYqa">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width={24} fill="none" viewBox="0 0 24 24" className="injected-svg"
+                                    data-src="/static/media/Cart.b445db40.svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                                    <path
+                                        d="m7.5 7.6694v-0.97c0.01176-1.1338 0.42676-2.2264 1.1707-3.0821 0.74392-0.85569 1.7682-1.4186 2.8893-1.5879 0.625-0.06141 1.2559 0.00869 1.8522 0.20578s1.1448 0.51681 1.6101 0.93859 0.8371 0.93629 1.0916 1.5104c0.2545 0.57414 0.386 1.1952 0.3861 1.8232v1.38"
+                                        stroke="#292D32" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+                                    <path
+                                        d="m8.9998 22h6c4.02 0 4.74-1.61 4.95-3.57l0.75-6c0.27-2.44-0.43-4.43-4.7-4.43h-8c-4.27 0-4.97 1.99-4.7 4.43l0.75 6c0.21 1.96 0.93 3.57 4.95 3.57z"
+                                        stroke="#292D32" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+                                    <path d="m15.496 12h5e-3" stroke="#292D32" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+                                    <path d="m8.4951 12h5e-3" stroke="#292D32" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+                                </svg>
+                            </div>
+                        </div>
+                    </Link>
+                    <Dropdown overlay={menu}>
+                        <a onClick={(e) => e.preventDefault()} style={{display:'flex',alignItems:'center'}}>
+                        <Space>
+                            <img src='https://ui-avatars.com/api/?name=Admin&size=512' style={{width:'37px',height:'37px'}}></img>
+                            <DownOutlined />
+                        </Space>
+                        </a>
+                    </Dropdown>
+
+                </nav>:
+                //logout menu
                 <nav className="TopNav__RightNav-sc-1g6u0p6-19 ldzGYq">
                     <Link className="TopNav__TopNavLinkItem-sc-1g6u0p6-7 bUlzUw" to="/signin">
                         <div className="SVGIcon-uyvh4z-0 bQEYqa">
@@ -83,7 +146,8 @@ const Header = () => {
                         to="/signin"><span>Đăng nhập</span></Link></div>
                     <div className="TopNav__TopNavButton-sc-1g6u0p6-8 girgsR"><Link className="TopNav__LinkText-sc-1g6u0p6-3 qLQav"
                         to="/contact-us"><span>Đăng ký</span></Link></div>
-                </nav>
+                </nav>}
+                
             </div>
         </header>
     )

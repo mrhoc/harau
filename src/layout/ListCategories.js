@@ -31,9 +31,8 @@ const ListCategories = () => {
     const hanleSelectedCat=(cat)=>{
         setactiveCat(cat);
     }
-    console.log(activeCat);
-    
-   
+
+
 
     return (
         <div id="category" className="desktop__CategoryWrapper-sc-1ligtl5-6 kZalnp">

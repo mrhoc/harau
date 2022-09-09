@@ -23,7 +23,7 @@ const Login = () => {
 
         var config = {
             method: 'post',
-            url: 'http://api.harau.vn//identity/login',
+            url: '/identity/login',
             headers: { 
                 'Authorization': 'Basic eHVhbnR1YW45MEBnbWFpbC5jb206MTIzNDU2', 
                 'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ const Login = () => {
                 console.log(JSON.stringify(response.data));
             })
             .catch(function (error) {
-                console.log(error);
+                console.log('error',error);
             });
 
     };

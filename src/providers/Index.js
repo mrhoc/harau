@@ -9,6 +9,7 @@ const AppProviders = ({ children }) => {
    const [activeCat, setactiveCat] = useState({})
    const [txtSearch, settxtSearch] = useState('')
 
+   const [isLogin, setisLogin] = useState(true)
    const [user, setuser] = useState('')
 
    return <AppContext.Provider value={
@@ -18,7 +19,8 @@ const AppProviders = ({ children }) => {
          products, setproducts,
          productsCat, setproductsCat,
          activeCat,setactiveCat,
-         user,setuser
+         user,setuser,
+         isLogin,setisLogin
       }
    }>
       {children}
