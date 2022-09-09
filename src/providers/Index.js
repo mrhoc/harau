@@ -9,13 +9,16 @@ const AppProviders = ({ children }) => {
    const [activeCat, setactiveCat] = useState({})
    const [txtSearch, settxtSearch] = useState('')
 
+   const [user, setuser] = useState('')
+
    return <AppContext.Provider value={
       {
          isOpenMenu, setisOpenMenu,
          txtSearch, settxtSearch,
          products, setproducts,
          productsCat, setproductsCat,
-         activeCat,setactiveCat
+         activeCat,setactiveCat,
+         user,setuser
       }
    }>
       {children}

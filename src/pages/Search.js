@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../providers/Index';
-import {removeAccents} from '../services/Untils'
 const Search = () => {
     const useAppContext = useContext(AppContext)
     const {productsCat } = useAppContext;

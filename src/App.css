@@ -1872,3 +1872,10 @@ img {
     max-width: 485px;
     width: 33.6%;
 }
+.ant-form-item-label > label::after{
+  display: none;
+}
+.ant-input-affix-wrapper{
+  padding-top: 0;
+  padding-bottom: 0;
+}

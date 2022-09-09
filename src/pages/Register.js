@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AppContext } from '../providers/Index';
 import AppStore from '../assets/images/AppStore.76c5b55d.svg'
@@ -55,7 +56,7 @@ const Register = () => {
                                 </div>
                                 <p><span>Bằng việc nhấn Gửi, bạn đã đồng ý với</span> <a target="_blank" href="docs/term-of-service"><span>Chính sách bảo mật</span></a>
                                     &amp; <a target="_blank" href="docs/privacy-policy"><span>Điều khoản sử dụng</span></a></p>
-                                <p><span>Đã có tài khoản?</span> <a href="/signin"><span>Đăng nhập</span></a></p></form>
+                                <p><span>Đã có tài khoản?</span> <Link to="/signin"><span>Đăng nhập</span></Link></p></form>
                         </section>
                     </div>
                     <div className="GateLayout__DownloadAppContainer-cr7ybx-8 hLkNwS">
