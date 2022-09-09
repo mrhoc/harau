@@ -1,30 +1,11 @@
 import React, { useContext } from 'react';
-import { Pagination } from 'antd';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { AppContext } from '../providers/Index';
 
 const Market = () => {
     const useAppContext = useContext(AppContext)
-    const { products, setproducts, activeCat,setproductsCat } = useAppContext;
-    useEffect(() => {
-        var config = {
-            method: 'get',
-            url: '/api/products/',
-        };
-        axios(config)
-            .then(function (response) {
-                let dt = response.data
-                setproducts(dt.data)
-                setproductsCat(dt.data)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }, []);
-
+    const { products, activeCat } = useAppContext;
+   
     const renderProducts = () => {
-       
         var dataS;
         if (activeCat.key === 'all') {
             dataS = products;

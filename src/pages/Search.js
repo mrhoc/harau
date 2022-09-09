@@ -3,12 +3,12 @@ import { AppContext } from '../providers/Index';
 import {removeAccents} from '../services/Untils'
 const Search = () => {
     const useAppContext = useContext(AppContext)
-    const { products, txtSearch } = useAppContext;
-   console.log(txtSearch);
+    const {productsCat } = useAppContext;
+
     const renderProducts = () => {
-        var dataS = products && products.filter(item => removeAccents(item.name).toLowerCase().includes(removeAccents(txtSearch).toLowerCase()));
-        console.log(dataS);
-        return dataS && dataS.map(product => <div key={product.key} className="ant-col ant-col-md-8 ant-col-xl-6" style={{ padding: 12 }}>
+        var dataS = productsCat;
+        if(dataS.length!==0){
+            return dataS && dataS.map(product => <div key={product.key} className="ant-col ant-col-md-8 ant-col-xl-6" style={{ padding: 12 }}>
             <article title={product.name} className="Card-gwofcb-0 MarketItem__Container-rr0c4s-0 gpLETI">
                 <div className="CardLink__Container-dqor2y-0 jRvebg">
                     <div className="MarketItem__CardLinkContent-rr0c4s-3 hZWvVs">
@@ -69,6 +69,9 @@ const Search = () => {
                 </div>
             </article>
         </div>)
+        }
+        else return <div style={{textAlign:'center',width:'100%'}}>Không có sản phẩm phù hợp với kết quả tìm kiếm</div>
+        
     }
 
     return <>

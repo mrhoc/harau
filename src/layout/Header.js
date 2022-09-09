@@ -2,19 +2,20 @@ import { useContext } from 'react';
 import logo from '../assets/images/logo.png'
 import { AppContext } from '../providers/Index';
 import { Link } from 'react-router-dom';
+import {removeAccents} from '../services/Untils'
 const Header = () => {
     const useAppContext=useContext(AppContext);
-    const {isOpenMenu,setisOpenMenu,setactiveCat,settxtSearch,txtSearch}=useAppContext;
+    const {isOpenMenu,setisOpenMenu,setactiveCat,settxtSearch,txtSearch,setproductsCat,products}=useAppContext;
     const handleOpenMenu = () => {
         setisOpenMenu(!isOpenMenu);
     }
 
-    
-
     const handleChange=(v)=>{
+        var dataS = products && products.filter(item => removeAccents(item.name).toLowerCase().includes(removeAccents(txtSearch).toLowerCase()));
+        setproductsCat(dataS)
         settxtSearch(v)
     }
-    console.log(txtSearch);
+
     return (
         <header className="TopNav__TopNavWrapper-sc-1g6u0p6-16 hhDmbf">
             <div className="TopNav__TopNavContent-sc-1g6u0p6-21 gGaWuG">
