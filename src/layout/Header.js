@@ -96,7 +96,7 @@ const Header = () => {
                 {isLogin?
                 // login menu
                 <nav className="TopNav__RightNav-sc-1g6u0p6-19 ldzGYq">
-                    <Link className="TopNav__TopNavLinkItem-sc-1g6u0p6-7 bUlzUw" to="/Checkout">
+                    <Link className="TopNav__TopNavLinkItem-sc-1g6u0p6-7 bUlzUw" to="/Checkout/step/1">
                         <div className="SVGIcon-uyvh4z-0 bQEYqa">
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width={24} fill="none" viewBox="0 0 24 24" className="injected-svg"

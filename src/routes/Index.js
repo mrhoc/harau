@@ -5,6 +5,9 @@ import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Search from "../pages/Search";
 import LayoutProducts from "../layout/Layout-products";
+import Checkout from "../layout/Checkout";
+import Checkout2 from "../layout/Checkout-step2";
+import Checkout3 from "../layout/Checkout-step3";
 
 const RouteApp = () => {
     return (
@@ -13,6 +16,9 @@ const RouteApp = () => {
                 <Route path="/" element={<LayoutProducts children={<HomePage />} />} />
                 <Route path="/market" element={<LayoutProducts children={<Market />} />} />
                 <Route path="/search-result" element={<LayoutProducts children={<Search />} />} />
+                <Route path="/checkout/step/1" element={<LayoutProducts children={<Checkout />} />} />
+                <Route path="/checkout/step/2" element={<LayoutProducts children={<Checkout2 />} />} />
+                <Route path="/checkout/step/3" element={<LayoutProducts children={<Checkout3 />} />} />
                 <Route path="/signin" element={<Login />} />
                 <Route path="/contact-us" element={<Register />} />
             </Routes>
