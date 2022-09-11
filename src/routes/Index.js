@@ -8,19 +8,29 @@ import LayoutProducts from "../layout/Layout-products";
 import Checkout from "../layout/Checkout";
 import Checkout2 from "../layout/Checkout-step2";
 import Checkout3 from "../layout/Checkout-step3";
-
+import { AppContext } from "../providers/Index";
+import { useContext } from "react";
+import Favorites from "../pages/Favorites";
+import Orders from "../pages/Orders";
 const RouteApp = () => {
+    const useAppContext = useContext(AppContext);
+    const { currentUser } = useAppContext;
     return (
         <div className="MainLayout__MainContent-sc-1yxvn5u-1 ehqzmb">
             <Routes>
                 <Route path="/" element={<LayoutProducts children={<HomePage />} />} />
                 <Route path="/market" element={<LayoutProducts children={<Market />} />} />
                 <Route path="/search-result" element={<LayoutProducts children={<Search />} />} />
-                <Route path="/checkout/step/1" element={<LayoutProducts children={<Checkout />} />} />
-                <Route path="/checkout/step/2" element={<LayoutProducts children={<Checkout2 />} />} />
-                <Route path="/checkout/step/3" element={<LayoutProducts children={<Checkout3 />} />} />
+                {currentUser.userName&&<>
+                    <Route path="/checkout/step/1" element={<LayoutProducts children={<Checkout />} />} />
+                    <Route path="/checkout/step/2" element={<LayoutProducts children={<Checkout2 />} />} />
+                    <Route path="/checkout/step/3" element={<LayoutProducts children={<Checkout3 />} />} />
+                    <Route path="/favorites" element={<LayoutProducts children={<Favorites />} />} />
+                    <Route path="/orders" element={<LayoutProducts children={<Orders />} />} />
+                </>}
                 <Route path="/signin" element={<Login />} />
                 <Route path="/contact-us" element={<Register />} />
+                
             </Routes>
         </div>
     )

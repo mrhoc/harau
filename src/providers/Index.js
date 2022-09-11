@@ -6,6 +6,7 @@ const AppProviders = ({ children }) => {
    const [isOpenMenu, setisOpenMenu] = useState(false)
    const [products, setproducts] = useState([])
    const [productsCat, setproductsCat] = useState([])
+   const [favorites, setfavorites] = useState([])
    const [activeCat, setactiveCat] = useState({})
    const [txtSearch, settxtSearch] = useState('')
 
@@ -20,6 +21,7 @@ const AppProviders = ({ children }) => {
          productsCat, setproductsCat,
          activeCat,setactiveCat,
          currentUser,setcurrentUser,
+         favorites,setfavorites
          
       }
    }>
