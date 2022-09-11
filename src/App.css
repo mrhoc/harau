@@ -554,10 +554,13 @@ html [type="button"],
   }
 }
 
-
-.JvmDA:hover {
-  transform: translate3d(0px, 0px, 0px);
+@media (min-width: 835px) {
+  .JvmDA:hover {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  
 }
+
 
 
 
@@ -1804,6 +1807,11 @@ img {
   position: relative;
   z-index: 1;
   padding: 80pt 8pt;
+}
+@media (max-width:768px) {
+  .jdPVrB{
+  padding:100pt 8pt;
+}
 }
 
 @media (min-width: 1025px) {

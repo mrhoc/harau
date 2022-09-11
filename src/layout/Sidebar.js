@@ -5,7 +5,7 @@ import { AppContext } from '../providers/Index';
 import { Link } from 'react-router-dom';
 const Sidebar = () => {
     const useAppContext = useContext(AppContext);
-    const { isOpenMenu, currentUser, setcurrentUser } = useAppContext;
+    const { isOpenMenu,setisOpenMenu, currentUser, setcurrentUser } = useAppContext;
 
     var favorite, orders;
     if (currentUser.userName) {
@@ -16,9 +16,10 @@ const Sidebar = () => {
         favorite = '/signin'
         orders = '/signin'
     }
+    console.log(isOpenMenu);
     return (
         <div className="SideNav__SideNavContainer-sc-1olbv6e-18 bJhEAi">
-            <nav className={`${isOpenMenu && 'opened'} SideNav__SideNavWrapper-sc-1olbv6e-15 JvmDA `}>
+            <nav className={`${isOpenMenu ? 'opened' : ''} SideNav__SideNavWrapper-sc-1olbv6e-15 JvmDA `}>
                 <div className="SideNav__StoreContainer-sc-1olbv6e-0 fDfLf">
                     <div className="SideNav__StoreWrapper-sc-1olbv6e-2 eWakyH"><img src={avt} className="SideNav__StoreAvatar-sc-1olbv6e-1 hzPbem" />
                         <div className="SideNav__StoreInfo-sc-1olbv6e-3 cgdFUK">
@@ -30,7 +31,7 @@ const Sidebar = () => {
                         </div>
                     </div>
                 </div>
-                <Link className="SideNav__StyledLink-sc-1olbv6e-12 dkdqOG active" favorite="false" to="/" aria-current="page"><div className="SideNav__SideNavItemBorderLeft-sc-1olbv6e-11 fnJzpo" /><div className="SVGIcon-uyvh4z-0 SideNav__SideNavIcon-sc-1olbv6e-8 cuNvox"><div><svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="currentColor" className="injected-svg" data-src="/static/media/Market.ad9a73d7.svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                <Link onClick={()=>{setisOpenMenu(false)}} className="SideNav__StyledLink-sc-1olbv6e-12 dkdqOG active" favorite="false" to="/" aria-current="page"><div className="SideNav__SideNavItemBorderLeft-sc-1olbv6e-11 fnJzpo" /><div className="SVGIcon-uyvh4z-0 SideNav__SideNavIcon-sc-1olbv6e-8 cuNvox"><div><svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="currentColor" className="injected-svg" data-src="/static/media/Market.ad9a73d7.svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                     <path d="M15.1243 22.5144H9.73434C7.22534 22.5144 5.52234 21.9804 4.37534 20.8334C3.22834 19.6864 2.69434 17.9834 2.69434 15.4744V10.9844C2.69434 10.7855 2.77335 10.5947 2.91401 10.454C3.05466 10.3134 3.24542 10.2344 3.44434 10.2344C3.64325 10.2344 3.83401 10.3134 3.97467 10.454C4.11532 10.5947 4.19434 10.7855 4.19434 10.9844V15.4744C4.19434 17.5604 4.58934 18.9254 5.43634 19.7744C6.28334 20.6234 7.64934 21.0164 9.73634 21.0164H15.1263C17.2123 21.0164 18.5773 20.6214 19.4263 19.7744C20.2753 18.9274 20.6683 17.5614 20.6683 15.4744V10.9844C20.6683 10.7855 20.7474 10.5947 20.888 10.454C21.0287 10.3134 21.2194 10.2344 21.4183 10.2344C21.6172 10.2344 21.808 10.3134 21.9487 10.454C22.0893 10.5947 22.1683 10.7855 22.1683 10.9844V15.4744C22.1683 17.9834 21.6343 19.6864 20.4873 20.8334C19.3403 21.9804 17.6343 22.5144 15.1243 22.5144Z" />
                     <path d="M12.4913 12.5166H12.3783C11.8536 12.5167 11.3348 12.4057 10.8561 12.1908C10.3774 11.9759 9.94966 11.662 9.60105 11.2698C9.25243 10.8777 8.99085 10.4161 8.83352 9.91551C8.67619 9.41494 8.62669 8.88671 8.68827 8.36563L9.35727 1.69263C9.37541 1.50714 9.46196 1.33505 9.60006 1.2099C9.73815 1.08474 9.9179 1.01549 10.1043 1.01563H14.7743C14.9603 1.01571 15.1397 1.08494 15.2775 1.20986C15.4154 1.33479 15.5019 1.50649 15.5203 1.69163L16.1803 8.36563C16.242 8.88671 16.1926 9.41496 16.0354 9.91558C15.8782 10.4162 15.6168 10.8779 15.2682 11.2701C14.9197 11.6624 14.4921 11.9764 14.0134 12.1914C13.5348 12.4064 13.016 12.5176 12.4913 12.5176V12.5166ZM12.4343 11.0156H12.4913C12.8047 11.0158 13.1146 10.9494 13.4004 10.8209C13.6863 10.6924 13.9416 10.5047 14.1496 10.2702C14.3575 10.0357 14.5133 9.75974 14.6067 9.46055C14.7001 9.16137 14.7289 8.84577 14.6913 8.53463V8.51863L14.0983 2.51863H10.7823L10.1823 8.51863V8.53362C10.1443 8.84816 10.1743 9.16718 10.2701 9.46914C10.366 9.77111 10.5255 10.049 10.7379 10.2841C10.9503 10.5191 11.2107 10.7059 11.5014 10.8318C11.7922 10.9576 12.1065 11.0196 12.4233 11.0136L12.4343 11.0156Z" />
                     <path d="M18.8114 12.5187H18.7294C17.7296 12.4975 16.771 12.1167 16.0292 11.4462C15.2874 10.7756 14.8121 9.86018 14.6904 8.86766V8.85066L13.9904 1.84066C13.9802 1.73671 13.9919 1.63179 14.0246 1.5326C14.0573 1.43342 14.1104 1.34217 14.1805 1.2647C14.2505 1.18722 14.3359 1.12523 14.4313 1.08269C14.5267 1.04014 14.6299 1.018 14.7344 1.01766H17.7844C18.9915 0.91255 20.1923 1.27961 21.1344 2.04166C21.9616 2.91915 22.4485 4.06312 22.5074 5.26766C22.5074 5.27632 22.5074 5.28532 22.5074 5.29466L22.7864 8.03766C22.8538 8.60005 22.8012 9.17036 22.6321 9.71095C22.463 10.2515 22.1812 10.7501 21.8053 11.1739C21.4294 11.5976 20.968 11.9368 20.4514 12.1691C19.9348 12.4014 19.3748 12.5216 18.8084 12.5217L18.8114 12.5187ZM16.1794 8.69366C16.2594 9.32618 16.564 9.90889 17.0378 10.3355C17.5116 10.7621 18.123 11.0042 18.7604 11.0177H18.8114C19.1662 11.0177 19.517 10.9424 19.8406 10.7968C20.1642 10.6512 20.4531 10.4386 20.6884 10.1729C20.9237 9.90732 21.0999 9.59479 21.2054 9.256C21.3109 8.91721 21.3433 8.55989 21.3004 8.20765V8.19266L21.0194 5.45766C20.7014 3.17766 19.9734 2.51766 17.7844 2.51766H15.5634L16.1794 8.69366Z" />
@@ -38,7 +39,7 @@ const Sidebar = () => {
                     <path d="M12.1184 15.9922C12.2239 15.9922 12.3294 15.9979 12.4344 16.0092C12.8777 15.9616 13.3261 16.0148 13.7459 16.165C14.1657 16.3152 14.5462 16.5583 14.8588 16.8763C15.1714 17.1943 15.408 17.5788 15.551 18.0012C15.6939 18.4235 15.7395 18.8727 15.6844 19.3152V21.7652C15.6844 21.9641 15.6053 22.1549 15.4647 22.2955C15.324 22.4362 15.1333 22.5152 14.9344 22.5152H9.93436C9.73545 22.5152 9.54468 22.4362 9.40403 22.2955C9.26338 22.1549 9.18436 21.9641 9.18436 21.7652V19.3152C9.13247 18.8992 9.16963 18.477 9.29335 18.0764C9.41707 17.6759 9.62454 17.3063 9.90199 16.992C10.1794 16.6778 10.5205 16.4262 10.9027 16.2538C11.2848 16.0814 11.6992 15.9922 12.1184 15.9922ZM12.4344 17.5142C12.3985 17.5141 12.3628 17.5114 12.3274 17.5062C12.1032 17.4739 11.8745 17.4943 11.6596 17.5658C11.4447 17.6372 11.2494 17.7579 11.0892 17.918C10.929 18.0782 10.8084 18.2735 10.7369 18.4884C10.6654 18.7034 10.645 18.932 10.6774 19.1562C10.6826 19.1916 10.6852 19.2274 10.6854 19.2632V21.0132H14.1854V19.2652C14.1855 19.2294 14.1881 19.1936 14.1934 19.1582C14.2257 18.934 14.2053 18.7054 14.1338 18.4904C14.0623 18.2755 13.9417 18.0802 13.7815 17.92C13.6214 17.7599 13.4261 17.6392 13.2111 17.5677C12.9962 17.4963 12.7676 17.4759 12.5434 17.5082C12.5072 17.5128 12.4708 17.5148 12.4344 17.5142Z" />
                 </svg></div></div><span className="SideNav__SideNavLabel-sc-1olbv6e-9 ckiOBb"><span>Chợ</span></span></Link>
 
-                <Link className="SideNav__StyledLink-sc-1olbv6e-12 dkdqOG" favorite="true" to={favorite}>
+                <Link onClick={()=>{setisOpenMenu(false)}} className="SideNav__StyledLink-sc-1olbv6e-12 dkdqOG" favorite="true" to={favorite}>
                     <div className="SideNav__SideNavItemBorderLeft-sc-1olbv6e-11 fnJzpo" />
                     <div favorite="true" className="SVGIcon-uyvh4z-0 SideNav__SideNavIcon-sc-1olbv6e-8 cuNvox">
                         <div>
@@ -57,7 +58,7 @@ const Sidebar = () => {
                     <span className="SideNav__SideNavLabel-sc-1olbv6e-9 SideNav__FavoriteSideNavLabel-sc-1olbv6e-10 hEWsxw"><span>Sản phẩm yêu thích</span></span>
                 </Link>
 
-                <Link className="SideNav__StyledLink-sc-1olbv6e-12 dkdqOG" favorite="false" to={orders}>
+                <Link onClick={()=>{setisOpenMenu(false)}} className="SideNav__StyledLink-sc-1olbv6e-12 dkdqOG" favorite="false" to={orders}>
                     <div className="SideNav__SideNavItemBorderLeft-sc-1olbv6e-11 fnJzpo" />
                     <div className="SVGIcon-uyvh4z-0 parentIcon SideNav__SideNavIcon-sc-1olbv6e-8 cuNvox">
                         <div>
