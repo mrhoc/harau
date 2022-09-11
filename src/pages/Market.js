@@ -75,7 +75,7 @@ const Market = () => {
             </article>
         </div>)
     }
-
+    console.log(activeCat);
 
     return (
 

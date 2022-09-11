@@ -1,18 +1,61 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import AppStore from '../assets/images/AppStore.76c5b55d.svg'
 import GoogleStore from '../assets/images/GoogleStore.cb918cd4.svg'
 import adea69c8d35c1cfa32ee173db7ac457b from '../assets/images/adea69c8d35c1cfa32ee173db7ac457b.png'
 import a1951685fa3474f6eb8c306adbe6204a from '../assets/images/a1951685fa3474f6eb8c306adbe6204a.png'
 import ba2622d292e9341b265ded7245853198 from '../assets/images/ba2622d292e9341b265ded7245853198.png'
 import a482c967e50fef21791147c113f4a4afb from '../assets/images/a482c967e50fef21791147c113f4a4afb.png'
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input,notification } from 'antd';
+
 const { TextArea } = Input;
 const Register = () => {
+    const navigate = useNavigate()
 
+    const openNotification = () => {
+        notification.open({
+          message: 'Thông báo',
+          description:
+            'Đăng ký thành công.',
+          onClick: () => {
+            console.log('Notification Clicked!');
+          },
+        });
+      };
 
     const onFinish = (values) => {
         console.log('Success:', values);
+        var ip = JSON.stringify({
+            "username": values.userName,
+            "password": values.password,
+            "fullName": values.fullname,
+            "phone": values.phone,
+            "email": values.email,
+            "address": values.address
+        });
+
+        var config = {
+            method: 'post',
+            url: '/identity/register',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: ip
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                if (response.data) {
+                    openNotification()
+                    navigate('/signin')
+                }
+            })
+            .catch(function (error) {
+                console.log('error', error);
+
+            });
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -78,7 +121,7 @@ const Register = () => {
                                 >
                                     <Input.Password />
                                 </Form.Item>
-                                
+
                                 <Form.Item
                                     label="Số điện thoại"
                                     name="phone"
@@ -115,7 +158,7 @@ const Register = () => {
                                 >
                                     <TextArea rows={4} />
                                 </Form.Item>
-                                
+
 
                                 <Form.Item
                                     wrapperCol={{
@@ -123,7 +166,7 @@ const Register = () => {
                                         span: 24,
                                     }}
                                 >
-                                    <Button style={{width:'100%'}} type="primary" htmlType="submit">
+                                    <Button style={{ width: '100%' }} type="primary" htmlType="submit">
                                         Gửi
                                     </Button>
                                 </Form.Item>

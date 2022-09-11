@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import logo from '../assets/images/logo.png'
 import { AppContext } from '../providers/Index';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {removeAccents} from '../services/Untils'
 import { Dropdown, Menu, Space } from 'antd';
 import { DownOutlined, SmileOutlined,LogoutOutlined } from '@ant-design/icons';
@@ -9,7 +9,9 @@ import { DownOutlined, SmileOutlined,LogoutOutlined } from '@ant-design/icons';
 const Header = () => {
     const useAppContext=useContext(AppContext);
     const {isOpenMenu,setisOpenMenu,setactiveCat,settxtSearch,txtSearch,setproductsCat,products,
-    isLogin,setisLogin}=useAppContext;
+    currentUser,setcurrentUser}=useAppContext;
+    const navigate=useNavigate()
+
     const handleOpenMenu = () => {
         setisOpenMenu(!isOpenMenu);
     }
@@ -20,7 +22,10 @@ const Header = () => {
         settxtSearch(v)
     }
 
-
+  
+   
+    console.log(currentUser);
+    
     const menu = (
         <Menu
           items={[
@@ -35,7 +40,7 @@ const Header = () => {
             {
               key: '2',
               label: (
-                <Link rel="noopener noreferrer" to="/signin" onClick={()=>{setisLogin(false)}}>
+                <Link rel="noopener noreferrer" to="/signin" onClick={()=>{setcurrentUser({})}}>
                   Đăng xuất
                 </Link>
               ),
@@ -93,7 +98,7 @@ const Header = () => {
                     </div>
                 </nav>
                 
-                {isLogin?
+                {currentUser.userName?
                 // login menu
                 <nav className="TopNav__RightNav-sc-1g6u0p6-19 ldzGYq">
                     <Link className="TopNav__TopNavLinkItem-sc-1g6u0p6-7 bUlzUw" to="/Checkout/step/1">

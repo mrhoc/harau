@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Link, useNavigate } from 'react-router-dom'
+import { Button, Checkbox, Form, Input,notification  } from 'antd';
 import AppStore from '../assets/images/AppStore.76c5b55d.svg'
 import GoogleStore from '../assets/images/GoogleStore.cb918cd4.svg'
 import adea69c8d35c1cfa32ee173db7ac457b from '../assets/images/adea69c8d35c1cfa32ee173db7ac457b.png'
@@ -12,21 +12,30 @@ import { useContext } from 'react';
 import axios from 'axios';
 const Login = () => {
     const useAppContext = useContext(AppContext)
-    const { products, activeCat } = useAppContext;
+    const {currentUser,setcurrentUser } = useAppContext;
+    const navigate=useNavigate()
+    const openNotification = () => {
+        notification.open({
+          message: 'Thông báo',
+          description:
+            'Tài khoản hoặc mật khẩu không đúng',
+          onClick: () => {
+            console.log('Notification Clicked!');
+          },
+        });
+      };
 
-    const onFinish = (values) => {
-        console.log('Success:', values);
-      
+    const onFinish = (values) => {    
         var ip = JSON.stringify({
-            values
+            "userName": values.userName,
+            "password": values.password
         });
 
         var config = {
             method: 'post',
             url: '/identity/login',
             headers: { 
-                'Authorization': 'Basic eHVhbnR1YW45MEBnbWFpbC5jb206MTIzNDU2', 
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
               },
             data: ip
         };
@@ -34,16 +43,29 @@ const Login = () => {
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
+                if(response.data){
+                    localStorage.setItem('ajs_user_id',response.data.accessToken);
+                    setcurrentUser(values)
+                    navigate('/')
+                    
+                }
+                
+                
             })
             .catch(function (error) {
                 console.log('error',error);
+                openNotification()
             });
 
     };
+    
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+    console.log('currentUser',currentUser);
+   
+
     return (
         <div classname="bulZNJ">
             <div className="GateLayout__Container-cr7ybx-0 ktLqKF">
@@ -69,8 +91,8 @@ const Login = () => {
                                 autoComplete="off"
                             >
                                 <Form.Item
-                                    label="Email"
-                                    name="email"
+                                    label="Tên đăng nhập"
+                                    name="userName"
                                     rules={[
                                         {
                                             required: true,
@@ -111,7 +133,7 @@ const Login = () => {
                                         span: 24,
                                     }}
                                 >
-                                    <Button type="primary" htmlType="submit" className='ant-btn-block'>
+                                    <Button type="primary" htmlType="submit" className='ant-btn-block' >
                                         Đăng Nhập
                                     </Button>
                                 </Form.Item>
