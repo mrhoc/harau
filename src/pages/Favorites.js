@@ -2,10 +2,12 @@ import { useEffect,useContext } from "react";
 import axios from "axios";
 import { AppContext } from "../providers/Index";
 import ProductsItem from "../components/ProductsItem";
+import { useNavigate } from "react-router-dom";
 const Favorites=()=>{
     var token=localStorage.getItem('ajs_user_id')
     const useAppContext = useContext(AppContext)
-    const { currentUser,favorites, setfavorites } = useAppContext;
+    const { currentUser,favorites, setfavorites,reloadFoverites } = useAppContext;
+
     useEffect(() => {
         var config = {
           method: 'get',
@@ -20,7 +22,7 @@ const Favorites=()=>{
           .catch(function (error) {
             console.log(error);
           });
-      }, [currentUser]);
+      }, [reloadFoverites]);
      
  
     return <>   

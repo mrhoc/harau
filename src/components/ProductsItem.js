@@ -1,24 +1,85 @@
 import { Link } from "react-router-dom"
 import { AppContext } from "../providers/Index";
-import {useContext} from 'react'
+import { useContext } from 'react'
 import { isEmpty } from "lodash";
+import axios from "axios";
+import {Button, notification} from 'antd'
 const ProductsItem = ({ product }) => {
+    var token=localStorage.getItem('ajs_user_id')
     const useAppContext = useContext(AppContext)
-    const { currentUser } = useAppContext;
-    console.log(product.userKey);
+    const { currentUser,setfavorites,setreloadFoverites,reloadFoverites } = useAppContext;
+    
+
+    const openNotification = (mess) => {
+        notification.open({
+          message: 'Thông báo',
+          description:
+          mess,
+          onClick: () => {
+            console.log('Notification Clicked!');
+          },
+        });
+      };
+
+    const handleLike = (product) => {
+        var ip = product.key;
+        if (!isEmpty(product.userKey)) {
+            
+            var config = {
+                method: 'delete',
+                url: `/api/wishlist/${ip}`,
+                headers: { Authorization: `Bearer ${token}` },
+                data: ip
+            };
+
+            axios(config)
+                .then(function (response) {
+                    console.log('delete favor');
+                    setreloadFoverites(!reloadFoverites);
+                    openNotification('Xóa thành công.')
+                })
+                .catch(function (error) {
+                    console.log('error', error);
+                    // openNotification()
+                });
+        }
+        else {
+            var config = {
+                method: 'post',
+                url: `/api/wishlist/${ip}`,
+                headers: { Authorization: `Bearer ${token}` },
+                data: ip
+            };
+
+            axios(config)
+                .then(function (response) {
+                    setreloadFoverites(!reloadFoverites);
+                    openNotification('Thêm sản phẩm yêu thích thành công.')
+                  
+                })
+                .catch(function (error) {
+                    openNotification('Bạn đã thích sản phẩm này.')
+                   
+                });
+        }
+    }
+
+    const addCart=(product)=>{
+        console.log(product);
+    }
     return <>
         <button type="button" className="ant-btn Button-jgr7l8-0 Favorite-tn0i37-1 hrXIPJ ant-btn-secondary ant-btn-circle">
-            
+
             {
-                !currentUser.userName?<Link to="/signin">
-                <div className="SVGIcon-uyvh4z-0 Favorite__FavoriteIcon-tn0i37-0 cCZxdL">
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width={16} height={14} viewBox="0 0 16 14" fill="none" className="injected-svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-                            <path d="M8.00003 14C7.79014 14 7.58135 13.9704 7.38013 13.9123L7.35855 13.9057C5.65191 13.2769 4.10892 12.2883 2.83992 11.0107C1.95714 10.177 1.25188 9.18174 0.764572 8.08191C0.277267 6.98207 0.0174974 5.79933 0.000154771 4.60148C-0.0074049 3.6951 0.262127 2.80706 0.774401 2.05051C1.28668 1.29397 2.01849 0.703185 2.8766 0.353453C3.7347 0.0037204 4.68022 -0.0891243 5.59267 0.0867511C6.50512 0.262627 7.34317 0.699257 8.00003 1.341C8.65791 0.701233 9.49607 0.266451 10.4081 0.0918811C11.32 -0.0826891 12.2647 0.01083 13.122 0.360559C13.9794 0.710289 14.7107 1.30045 15.2231 2.05607C15.7355 2.81169 16.0059 3.69868 15.9999 4.60438C15.9821 5.80173 15.7222 6.98391 15.2349 8.08322C14.7476 9.18252 14.0425 10.1774 13.1601 11.0107C11.8911 12.2883 10.3482 13.2769 8.64151 13.9057L8.61993 13.9123C8.41871 13.9704 8.20992 14 8.00003 14Z" fill="#E0E0E0" />
-                        </svg>
+                !currentUser.userName ? <Link to="/signin">
+                    <div className="SVGIcon-uyvh4z-0 Favorite__FavoriteIcon-tn0i37-0 cCZxdL">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={14} viewBox="0 0 16 14" fill="none" className="injected-svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+                                <path d="M8.00003 14C7.79014 14 7.58135 13.9704 7.38013 13.9123L7.35855 13.9057C5.65191 13.2769 4.10892 12.2883 2.83992 11.0107C1.95714 10.177 1.25188 9.18174 0.764572 8.08191C0.277267 6.98207 0.0174974 5.79933 0.000154771 4.60148C-0.0074049 3.6951 0.262127 2.80706 0.774401 2.05051C1.28668 1.29397 2.01849 0.703185 2.8766 0.353453C3.7347 0.0037204 4.68022 -0.0891243 5.59267 0.0867511C6.50512 0.262627 7.34317 0.699257 8.00003 1.341C8.65791 0.701233 9.49607 0.266451 10.4081 0.0918811C11.32 -0.0826891 12.2647 0.01083 13.122 0.360559C13.9794 0.710289 14.7107 1.30045 15.2231 2.05607C15.7355 2.81169 16.0059 3.69868 15.9999 4.60438C15.9821 5.80173 15.7222 6.98391 15.2349 8.08322C14.7476 9.18252 14.0425 10.1774 13.1601 11.0107C11.8911 12.2883 10.3482 13.2769 8.64151 13.9057L8.61993 13.9123C8.41871 13.9704 8.20992 14 8.00003 14Z" fill="#E0E0E0" />
+                            </svg>
+                        </div>
                     </div>
-                </div>
-            </Link>:<div className={`${!isEmpty(product.userKey)?'active':''} SVGIcon-uyvh4z-0 Favorite__FavoriteIcon-tn0i37-0 cCZxdL`}>
+                </Link> : <div onClick={() => { handleLike(product) }} className={`${!isEmpty(product.userKey) ? 'active' : ''} SVGIcon-uyvh4z-0 Favorite__FavoriteIcon-tn0i37-0 cCZxdL`}>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width={16} height={14} viewBox="0 0 16 14" fill="none" className="injected-svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                             <path d="M8.00003 14C7.79014 14 7.58135 13.9704 7.38013 13.9123L7.35855 13.9057C5.65191 13.2769 4.10892 12.2883 2.83992 11.0107C1.95714 10.177 1.25188 9.18174 0.764572 8.08191C0.277267 6.98207 0.0174974 5.79933 0.000154771 4.60148C-0.0074049 3.6951 0.262127 2.80706 0.774401 2.05051C1.28668 1.29397 2.01849 0.703185 2.8766 0.353453C3.7347 0.0037204 4.68022 -0.0891243 5.59267 0.0867511C6.50512 0.262627 7.34317 0.699257 8.00003 1.341C8.65791 0.701233 9.49607 0.266451 10.4081 0.0918811C11.32 -0.0826891 12.2647 0.01083 13.122 0.360559C13.9794 0.710289 14.7107 1.30045 15.2231 2.05607C15.7355 2.81169 16.0059 3.69868 15.9999 4.60438C15.9821 5.80173 15.7222 6.98391 15.2349 8.08322C14.7476 9.18252 14.0425 10.1774 13.1601 11.0107C11.8911 12.2883 10.3482 13.2769 8.64151 13.9057L8.61993 13.9123C8.41871 13.9704 8.20992 14 8.00003 14Z" fill="#E0E0E0" />
@@ -44,7 +105,7 @@ const ProductsItem = ({ product }) => {
                     <div className="Price__PriceContainer-pje2yp-1 kfgZzF"><p className="Price__PriceText-pje2yp-0 hdfLLI">{product.price}/{product.unitName}</p></div>
                 </div>
                 <div className="Details__FooterContainer-deqbu8-2 TkwlX">
-                    <div className="Details__FlexContainer-deqbu8-3 hkVFdU">
+                    {/* <div className="Details__FlexContainer-deqbu8-3 hkVFdU">
                         <div className="ProductNote__NoteAction-sc-1ht25tx-1 zgsGq">
                             <button type="button" className="ant-btn Button-jgr7l8-0 ProductNote__AddNoteButton-sc-1ht25tx-2 bZBNJq ant-btn-link ant-btn-sm">
                                 <a href="/signin"><span>Ghi chú</span></a></button>
@@ -67,7 +128,8 @@ const ProductsItem = ({ product }) => {
                                     </i></button>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
+                    <Button type="primary" onClick={()=>{addCart(product)}}>Thêm giỏ hàng</Button>
                 </div>
             </div>
         </div>

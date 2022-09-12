@@ -9,6 +9,7 @@ const AppProviders = ({ children }) => {
    const [favorites, setfavorites] = useState([])
    const [activeCat, setactiveCat] = useState({})
    const [txtSearch, settxtSearch] = useState('')
+   const [reloadFoverites,setreloadFoverites]=useState(false)
 
    
    const [currentUser, setcurrentUser] = useState({})
@@ -21,7 +22,8 @@ const AppProviders = ({ children }) => {
          productsCat, setproductsCat,
          activeCat,setactiveCat,
          currentUser,setcurrentUser,
-         favorites,setfavorites
+         favorites,setfavorites,
+         reloadFoverites,setreloadFoverites
          
       }
    }>
