@@ -2453,3 +2453,136 @@ img {
   width: 26px;
   height: 26px;
 }
+.bhmBvK:hover {
+  color: rgba(0, 0, 0, 0.87);
+  background-color: rgb(240, 248, 251);
+}
+.bhmBvK:hover .OrderTable__CellArrow-sc-1dw820r-0 circle {
+  fill: rgb(46, 144, 78);
+}
+.bhmBvK:hover .OrderTable__CellArrow-sc-1dw820r-0 path {
+  fill: rgb(255, 255, 255);
+}
+
+.ant-card-body.ant-card-body {
+  padding: 8pt;
+}
+.cVHuBw {
+  margin-bottom: 4pt;
+  display: flex;
+  flex-direction: row;
+}
+.ant-btn-background-ghost.ant-btn-primary {
+  color: #2e904e;
+  background-color: transparent;
+  border-color: #2e904e;
+  text-shadow: none;
+}
+.ljjTvm {
+  border-radius: 10px;
+  background-color: rgb(140, 140, 140);
+  color: white;
+  display: inline-block;
+  padding: 2px 16px;
+  font-size: 14px;
+  min-width: 120px;
+  text-align: center;
+}
+.gjrqGn {
+  color: rgba(0, 0, 0, 0.54);
+  min-width: 80pt;
+  margin-right: 10pt;
+}
+.dTwnQL {
+  color: rgba(0, 0, 0, 0.87);
+  flex: 1 1 0%;
+}
+.gOWETX .ant-row{
+  display: flex!important;
+}
+.dtsazv {
+  border: 1px solid rgb(232, 232, 232);
+  border-radius: 4px 4px 0px 0px;
+  box-shadow: rgb(4 15 15 / 12%) 4px 4px 8px;
+}
+.bpRJgs {
+  display: flex;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
+  align-items: center;
+  border-top: 1px solid rgb(232, 232, 232);
+  box-sizing: border-box;
+  transition: all 0.3s ease 0s;
+  background-color: white;
+}
+.bpRJgs.header {
+  border: none;
+  color: rgba(0, 0, 0, 0.54);
+  text-transform: capitalize;
+}
+.iLBjVT {
+  padding: 8px 12px;
+  flex: 1 0 40%;
+ 
+}
+.cbrXtH {
+  padding: 8px 12px;
+  flex: 1 0 20%;
+}
+.ieooJH {
+  padding: 8px 12px;
+  flex: 1 0 5%;
+}
+@media screen and (max-width: 1025px)
+{
+.hideOnSmall {
+    display: none;
+}
+.bhmBvK{
+  padding:0
+}
+}
+
+@media screen and (max-width: 640px)
+{
+  .iLBjVT {
+    padding: 8px 6px;
+    flex: 1 0 25%;
+    font-size: 12px;
+   
+  }
+  .cbrXtH {
+    padding: 8px 6px;
+    flex: 1 0 25%;
+    font-size: 12px;
+  }
+  .ieooJH {
+    padding: 8px 6px;
+    flex: 1 0 0%;
+    font-size: 12px;
+  }
+}
+
+.kSeiPc {
+  color: rgba(0, 0, 0, 0.54);
+  min-width: 80pt;
+  margin-right: 10pt;
+}
+@media (min-width: 768px)
+{
+.kSeiPc {
+    width: 100%;
+    margin-left: 8pt;
+    text-align: right;
+}}
+.ZXUXL {
+  display: flex;
+  flex-flow: row wrap;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  -webkit-box-align: center;
+  align-items: center;
+  flex: 1 1 0%;
+  margin-top: 10px;
+}

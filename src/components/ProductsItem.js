@@ -90,7 +90,7 @@ const ProductsItem = ({ product }) => {
         </button>
         <div>
             <div className="MarketItem__ImageContainer-rr0c4s-4 kVlklV" style={{ position: 'relative' }}>
-                <div className="Image__ImageWrapper-sc-791h2a-0 kgJdMp"><img loading="lazy" src={product.mainImage} alt="Ba Rọi Heo Cắt Lát Đông Lạnh 2mm NH Foods (1kg/túi)" className="Image__RImage-sc-791h2a-1 kcjXoq" />
+                <div className="Image__ImageWrapper-sc-791h2a-0 kgJdMp"><img loading="lazy" src={product.mainImage} alt="" className="Image__RImage-sc-791h2a-1 kcjXoq" />
                 </div>
                 <div className="MarketItem__TagContainer-rr0c4s-1 cfFbiK" />
             </div>
@@ -102,7 +102,7 @@ const ProductsItem = ({ product }) => {
                     </div>
                 </h3>
                 <div className="Details__PriceContainer-deqbu8-4 kUescO">
-                    <div className="Price__PriceContainer-pje2yp-1 kfgZzF"><p className="Price__PriceText-pje2yp-0 hdfLLI">{product.price}/{product.unitName}</p></div>
+                    <div className="Price__PriceContainer-pje2yp-1 kfgZzF"><p className="Price__PriceText-pje2yp-0 hdfLLI">{product.price.toLocaleString()}đ/{product.unitName}</p></div>
                 </div>
                 <div className="Details__FooterContainer-deqbu8-2 TkwlX">
                     {/* <div className="Details__FlexContainer-deqbu8-3 hkVFdU">

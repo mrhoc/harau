@@ -1,14 +1,17 @@
 import axios from "axios";
 import { useEffect, useContext } from "react";
 import { AppContext } from "../providers/Index";
+import {Link} from 'react-router-dom'
 const Orders = () => {
     var token = localStorage.getItem('ajs_user_id')
     const useAppContext = useContext(AppContext)
-    const { orders, setorders } = useAppContext;
+    const { orders, setorders,setordersKey } = useAppContext;
     useEffect(() => {
+        let today=new Date().toISOString()
+        console.log(today);
         var config = {
             method: 'get',
-            url: '/api/orders?From=2015-03-04T00:00:00.000&To=2022-09-17T00:00:00.000',
+            url: `/api/orders?From=2015-03-04T00:00:00.000&To=${today}`,
             headers: { Authorization: `Bearer ${token}` },
         };
 
@@ -30,7 +33,7 @@ const Orders = () => {
     console.log(orders);
     const renderOrders = () => {
         return orders && orders.map(order =>
-            <div className="OrderTable__OrderRowWrapper-sc-1dw820r-5 bhmBvK">
+            <Link to={`/orders/${order.key}`} className="OrderTable__OrderRowWrapper-sc-1dw820r-5 bhmBvK" onClick={()=>{setordersKey(order.key)}}>
                 <div className="hideOnSmall">
                     <div status="CANCELED" className="SVGIcon-uyvh4z-0 StatusIcon-sc-154vhxy-0 iQvygr">
                         <div>
@@ -70,7 +73,7 @@ const Orders = () => {
                 </div>
                 <div className="OrderTable__CellWrapper-sc-1dw820r-4 hdJLSn">
                     <div className="OrderTable__CellLabel-sc-1dw820r-1 dOpsoI"><span>Tổng</span></div>
-                    <div className="OrderTable__styleDiv-sc-1dw820r-2 no-wrap OrderTable__CellValue-sc-1dw820r-3 icoZsW">{order.totalPaymentAmount}đ</div>
+                    <div className="OrderTable__styleDiv-sc-1dw820r-2 no-wrap OrderTable__CellValue-sc-1dw820r-3 icoZsW">{order.totalPaymentAmount.toLocaleString()}đ</div>
                 </div>
                 <div className="hideOnSmall"><span className="SVGIcon-uyvh4z-0 hideOnMobile OrderTable__CellArrow-sc-1dw820r-0 fJIGUG"><span>
                     <svg xmlns="http://www.w3.org/2000/svg" width={26} height={26} viewBox="0 0 26 26" fill="none" className="injected-svg" data-src="/static/media/Ellipse.73b26f86.svg" xmlnsXlink="http://www.w3.org/1999/xlink">
@@ -78,9 +81,9 @@ const Orders = () => {
                         <path fillRule="evenodd" clipRule="evenodd" d="M11.1855 7.81448C10.9252 8.07483 10.9252 8.49694 11.1855 8.75729L15.4281 12.9999L11.1854 17.2426C10.9251 17.503 10.9251 17.9251 11.1854 18.1854C11.4458 18.4458 11.8679 18.4458 12.1282 18.1854L16.8366 13.477C16.8385 13.4751 16.8405 13.4732 16.8424 13.4713C17.1027 13.211 17.1027 12.7889 16.8424 12.5285L12.1283 7.81448C11.868 7.55413 11.4459 7.55413 11.1855 7.81448Z" fill="#2e904e" />
                     </svg></span></span>
                 </div>
-            </div>)
+            </Link>)
     }
-    console.log(new Date().toISOString());
+
     return <>
         <div style={{ background: '#f9fafc' }}>
             <div className="PageHeader__Container-sc-19x4r8h-1 fVgVuB"><h2 className="PageHeader__Header-sc-19x4r8h-0 jTfioR"><span>Đơn hàng</span></h2></div>

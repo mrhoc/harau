@@ -12,6 +12,7 @@ import { AppContext } from "../providers/Index";
 import { useContext } from "react";
 import Favorites from "../pages/Favorites";
 import Orders from "../pages/Orders";
+import OrdersDetail from "../pages/Orders-detail";
 const RouteApp = () => {
     const useAppContext = useContext(AppContext);
     const { currentUser } = useAppContext;
@@ -27,6 +28,7 @@ const RouteApp = () => {
                     <Route path="/checkout/step/3" element={<LayoutProducts children={<Checkout3 />} />} />
                     <Route path="/favorites" element={<LayoutProducts children={<Favorites />} />} />
                     <Route path="/orders" element={<LayoutProducts children={<Orders />} />} />
+                    <Route  path="/orders/:id" element={<LayoutProducts children={<OrdersDetail />} />} />
                 </>}
                 <Route path="/signin" element={<Login />} />
                 <Route path="/contact-us" element={<Register />} />
