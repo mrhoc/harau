@@ -68,8 +68,8 @@ const Orders = () => {
                     <div className="OrderTable__styleDiv-sc-1dw820r-2 no-wrap OrderTable__CellValue-sc-1dw820r-3 icoZsW">Admin</div></div>
                 <div className="OrderTable__CellWrapper-sc-1dw820r-4 hdJLSn">
                     <div className="OrderTable__CellLabel-sc-1dw820r-1 dOpsoI"><span>Trạng thái</span></div>
-                    <div className="OrderTable__styleDiv-sc-1dw820r-2 no-wrap OrderTable__CellValue-sc-1dw820r-3 icoZsW">
-                        <div className="OrderStatus__Tag-sc-15c08kj-0 ljjTvm">{order.orderStatus==1?'Đã huỷ':'Đã gửi'}</div></div>
+                    <div className={`OrderTable__styleDiv-sc-1dw820r-2 no-wrap OrderTable__CellValue-sc-1dw820r-3 icoZsW `}>
+                        <div className={`OrderStatus__Tag-sc-15c08kj-0 ljjTvm ${order.orderStatus&&'hLleu'}`}>{order.orderStatus==0?'Đã huỷ':'Đã gửi'}</div></div>
                 </div>
                 <div className="OrderTable__CellWrapper-sc-1dw820r-4 hdJLSn">
                     <div className="OrderTable__CellLabel-sc-1dw820r-1 dOpsoI"><span>Tổng</span></div>

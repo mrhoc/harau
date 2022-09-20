@@ -9,7 +9,7 @@ import { DownOutlined, SmileOutlined,LogoutOutlined } from '@ant-design/icons';
 const Header = () => {
     const useAppContext=useContext(AppContext);
     const {isOpenMenu,setisOpenMenu,setactiveCat,settxtSearch,txtSearch,setproductsCat,products,
-    currentUser,setcurrentUser}=useAppContext;
+    currentUser,setcurrentUser,productsCat,user}=useAppContext;
     const navigate=useNavigate()
 
     const handleOpenMenu = () => {
@@ -17,14 +17,16 @@ const Header = () => {
     }
 
     const handleChange=(v)=>{
-        var dataS = products && products.filter(item => removeAccents(item.name).toLowerCase().includes(removeAccents(txtSearch).toLowerCase()));
+        settxtSearch(v);
+        var dataS = products && products.filter(item => removeAccents(item.name).toLowerCase().includes(removeAccents(v).toLowerCase()));
         setproductsCat(dataS)
-        settxtSearch(v)
+        
     }
 
   
    
-    console.log(currentUser);
+    console.log('products',products);
+    console.log('productCat',productsCat);
     
     const menu = (
         <Menu
@@ -32,9 +34,9 @@ const Header = () => {
             {
               key: '1',
               label: (
-                <a  rel="noopener noreferrer" href="/">
+                <Link  rel="noopener noreferrer" to="/">
                   Thông tin tài khoản
-                </a>
+                </Link>
               ),
             },
             {
@@ -51,6 +53,13 @@ const Header = () => {
         />
       );
 
+        const enterS=(event)=>{
+            console.log('enter');
+            if (event.keyCode == 13){
+                document.getElementById('btn-s').click()
+            }
+           
+        }
 
     return (
         <header className="TopNav__TopNavWrapper-sc-1g6u0p6-16 hhDmbf">
@@ -92,8 +101,8 @@ const Header = () => {
                         <span
                             className="ant-input-search TopNav__AntdInput-sc-1g6u0p6-1 kNCBli ant-input-search-enter-button ant-input-search-default ant-input-group-wrapper">
                             <span className="ant-input-wrapper ant-input-group">
-                                <input onChange={(e)=>{handleChange(e.target.value)}} placeholder="Tìm kiếm trong Chợ" className="ant-input" type="text" value={txtSearch} />
-                                <span className="ant-input-group-addon"><Link to='/search-result'
+                                <input onKeyUp={enterS} onChange={(e)=>{handleChange(e.target.value)}} placeholder="Tìm kiếm trong Chợ" className="ant-input" type="text" value={txtSearch} />
+                                <span className="ant-input-group-addon" ><Link to='/search-result' id='btn-s'
                                     className="ant-btn ant-input-search-button ant-btn-primary"><span>Tìm</span></Link></span></span></span>
                     </div>
                 </nav>
@@ -121,7 +130,7 @@ const Header = () => {
                     <Dropdown overlay={menu}>
                         <a onClick={(e) => e.preventDefault()} style={{display:'flex',alignItems:'center'}}>
                         <Space>
-                            <img src='https://ui-avatars.com/api/?name=Admin&size=512' style={{width:'37px',height:'37px'}}></img>
+                            <img src={`https://ui-avatars.com/api/?name=${user.fullName}&size=512`} style={{width:'37px',height:'37px'}}></img>
                             <DownOutlined />
                         </Space>
                         </a>

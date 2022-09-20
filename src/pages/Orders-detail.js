@@ -47,8 +47,9 @@ const OrdersDetail = () => {
                                         </svg>
                                     </i><span> </span><span>In PDF</span></button>
                                 </div>
+                                
                                 <div className="OrderSummary__InfoRow-ugckj3-0 cVHuBw">
-                                    <div className="OrderStatus__Tag-sc-15c08kj-0 ljjTvm">Đã huỷ</div>
+                                    <div className={`OrderStatus__Tag-sc-15c08kj-0 ljjTvm ${detail.orderStatus&&'hLleu'}`}>{detail.orderStatus===0?'Đã huỷ':'Đã gửi'}</div>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +70,8 @@ const OrdersDetail = () => {
                                 </svg></div></div></span></div>
                             </div>
                             <div className="ant-col ant-col-sm-24 ant-col-lg-7" style={{ paddingLeft: 4, paddingRight: 4 }}>
-                                <div className="OrderSummary__InfoRow-ugckj3-0 cVHuBw"><span className="OrderSummary__TotalLabel-ugckj3-1 kSeiPc"><span>Tổng</span></span><span className="OrderSummary__Value-ugckj3-4 dTwnQL"><span className="OrderSummary__Price-ugckj3-6 bgbWRG"><span className="Money-doxtx5-0 brYFgQ"> {detail.totalPaymentAmount.toLocaleString()}đ</span></span></span></div>
+                                <div className="OrderSummary__InfoRow-ugckj3-0 cVHuBw"><span className="OrderSummary__TotalLabel-ugckj3-1 kSeiPc"><span>Tổng</span></span><span className="OrderSummary__Value-ugckj3-4 dTwnQL"><span className="OrderSummary__Price-ugckj3-6 bgbWRG"><span className="Money-doxtx5-0 brYFgQ">{detail.totalPaymentAmount ? detail.totalPaymentAmount.toLocaleString():'0'}đ</span></span></span></div>
+                                <div class="OrderSummary__InfoRow-ugckj3-0 cVHuBw"><span class="OrderSummary__LabelBtn-ugckj3-2 ghTrxj"><span>Huỷ đơn hàng</span></span></div>
                                 <div className="OrderSummary__InfoRow-ugckj3-0 cVHuBw" />
                                 <div className="OrderSummary__Actions-ugckj3-5 ZXUXL">
                                     <button type="button" className="ant-btn Button-jgr7l8-0 iPsOaJ ant-btn-primary ant-btn-background-ghost"><span>Thêm tất cả</span>

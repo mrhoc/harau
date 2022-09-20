@@ -21,7 +21,7 @@ const Search = () => {
         else return <div style={{textAlign:'center',width:'100%'}}>Không có sản phẩm phù hợp với kết quả tìm kiếm</div>
         
     }
-
+    console.log(productsCat);
     return <>
         <div className="PageHeader__Container-sc-19x4r8h-1 fVgVuB">
             <h2 className="PageHeader__Header-sc-19x4r8h-0 jTfioR">Chợ</h2>

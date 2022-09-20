@@ -6,13 +6,15 @@ import {useContext,useEffect} from 'react'
 import { AppContext } from './providers/Index';
 import axios from 'axios';
 function App() {
+  var token=localStorage.getItem('ajs_user_id')
   const useAppContext = useContext(AppContext)
-  const {setproducts, setproductsCat } = useAppContext;
+  const {setproducts, setproductsCat,setuser,user } = useAppContext;
 
   useEffect(() => {
     var config = {
       method: 'get',
       url: '/api/products/',
+      
     };
     axios(config)
       .then(function (response) {
@@ -25,6 +27,23 @@ function App() {
       });
   }, []);
 
+
+  useEffect(() => {
+    var config = {
+      method: 'get',
+      url: '/profile/user',
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    axios(config)
+      .then(function (response) {
+        setuser(response.data)
+   
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+  console.log('user',user);
   return (
     <div className="App">
       <Header></Header>

@@ -3,6 +3,9 @@ import { createContext, useState } from "react";
 export const AppContext = createContext();
 
 const AppProviders = ({ children }) => {
+   //user
+   const [user, setuser] = useState({})
+
    const [isOpenMenu, setisOpenMenu] = useState(false)
    const [products, setproducts] = useState([])
    const [productsCat, setproductsCat] = useState([])
@@ -30,7 +33,8 @@ const AppProviders = ({ children }) => {
          reloadFoverites,setreloadFoverites,
          orders,setorders,
          ordersKey,setordersKey,
-         detail,setdetail
+         detail,setdetail,
+         user,setuser
 
          
       }
