@@ -23,7 +23,7 @@ const Favorites=()=>{
           });
       }, [reloadFoverites]);
       
-    
+    console.log(favorites);
  
     return <>   
         <div className="PageHeader__Container-sc-19x4r8h-1 fVgVuB">

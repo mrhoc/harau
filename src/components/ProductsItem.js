@@ -22,9 +22,10 @@ const ProductsItem = ({ product }) => {
       };
 
     const handleLike = (product) => {
+      
         var ip = product.key;
-        if (!isEmpty(product.userKey)) {
-            
+        if (!isEmpty(product.userKey) || product.liked) {
+            console.log('unliked');
             var config = {
                 method: 'delete',
                 url: `/api/wishlist/${ip}`,
@@ -44,6 +45,7 @@ const ProductsItem = ({ product }) => {
                 });
         }
         else {
+            console.log('liked');
             var config = {
                 method: 'post',
                 url: `/api/wishlist/${ip}`,
@@ -105,7 +107,7 @@ const ProductsItem = ({ product }) => {
                     <div className="Price__PriceContainer-pje2yp-1 kfgZzF"><p className="Price__PriceText-pje2yp-0 hdfLLI">{product.price.toLocaleString()}đ/{product.unitName}</p></div>
                 </div>
                 <div className="Details__FooterContainer-deqbu8-2 TkwlX">
-                    {/* <div className="Details__FlexContainer-deqbu8-3 hkVFdU">
+                    <div className="Details__FlexContainer-deqbu8-3 hkVFdU">
                         <div className="ProductNote__NoteAction-sc-1ht25tx-1 zgsGq">
                             <button type="button" className="ant-btn Button-jgr7l8-0 ProductNote__AddNoteButton-sc-1ht25tx-2 bZBNJq ant-btn-link ant-btn-sm">
                                 <a href="/signin"><span>Ghi chú</span></a></button>
@@ -118,7 +120,7 @@ const ProductsItem = ({ product }) => {
                                             <path d="M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z" />
                                         </svg>
                                     </i></button>
-                                <input data-test="quantity-input" type="text" min={0} className="QuantityInnerInput-sc-1i1jla2-0 hCeYQQ" value={product.quantity} style={{ transition: 'opacity 0.2s ease 0s', backgroundColor: 'rgb(250, 250, 250)', color: 'inherit', fontSize: 16, width: 44 }} />
+                                <input data-test="quantity-input" type="text" min={0} className="QuantityInnerInput-sc-1i1jla2-0 hCeYQQ" value={1} style={{ transition: 'opacity 0.2s ease 0s', backgroundColor: 'rgb(250, 250, 250)', color: 'inherit', fontSize: 16, width: 44 }} />
                                 <button data-test="plus-button" type="button" className="ant-btn Button-jgr7l8-0 plus QuantityButton-sc-1rjirov-0 eYEupy ant-btn-round ant-btn-sm ant-btn-icon-only">
                                     <i aria-label="icon: plus" className="anticon anticon-plus">
                                         <svg viewBox="64 64 896 896" focusable="false" className data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
@@ -128,8 +130,8 @@ const ProductsItem = ({ product }) => {
                                     </i></button>
                             </div>
                         </div>
-                    </div> */}
-                    <Button type="primary" onClick={()=>{addCart(product)}}>Thêm giỏ hàng</Button>
+                    </div>
+                    {/* <Button type="primary" onClick={()=>{addCart(product)}}>Thêm giỏ hàng</Button> */}
                 </div>
             </div>
         </div>

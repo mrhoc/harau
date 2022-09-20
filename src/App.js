@@ -10,19 +10,19 @@ function App() {
   const useAppContext = useContext(AppContext)
   const {setproducts, setproductsCat,setuser,user,favorites,currentUser,products } = useAppContext;
   
-  useEffect(()=>{
-    console.log('favor change');
-    products&&products.map((d,index)=>{
-          favorites&&favorites.map(k=>{
-            if(k.key===d.key){
-              d['liked']=true;
-              console.log('liked');
-            }
-            return d;
-          })
-        })
-  },[favorites])
-  console.log(favorites);
+  // useEffect(()=>{
+  //   console.log('favor change');
+  //   products&&products.map((d,index)=>{
+  //         favorites&&favorites.map(k=>{
+  //           if(k.key===d.key){
+  //             d['liked']=true;
+  //             console.log('liked');
+  //           }
+  //           return d;
+  //         })
+  //       })
+  // },[favorites])
+  // console.log(favorites);
   
   useEffect(() => {
     var config = {
