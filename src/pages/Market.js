@@ -5,7 +5,6 @@ import { AppContext } from '../providers/Index';
 const Market = () => {
     const useAppContext = useContext(AppContext)
     const { products, activeCat } = useAppContext;
-    console.log(products);
     const renderProducts = () => {
         var dataS;
         if (activeCat.key === 'all') {

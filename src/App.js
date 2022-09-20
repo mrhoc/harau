@@ -8,8 +8,22 @@ import axios from 'axios';
 function App() {
   var token=localStorage.getItem('ajs_user_id')
   const useAppContext = useContext(AppContext)
-  const {setproducts, setproductsCat,setuser,user } = useAppContext;
-
+  const {setproducts, setproductsCat,setuser,user,favorites,currentUser,products } = useAppContext;
+  
+  useEffect(()=>{
+    console.log('favor change');
+    products&&products.map((d,index)=>{
+          favorites&&favorites.map(k=>{
+            if(k.key===d.key){
+              d['liked']=true;
+              console.log('liked');
+            }
+            return d;
+          })
+        })
+  },[favorites])
+  console.log(favorites);
+  
   useEffect(() => {
     var config = {
       method: 'get',
@@ -18,14 +32,14 @@ function App() {
     };
     axios(config)
       .then(function (response) {
-        let dt = response.data
+        let dt = response.data;
         setproducts(dt.data)
         setproductsCat(dt.data)
       })
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
+  }, [currentUser]);
 
 
   useEffect(() => {
@@ -42,8 +56,10 @@ function App() {
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
-  console.log('user',user);
+  }, [currentUser]);
+
+  
+
   return (
     <div className="App">
       <Header></Header>

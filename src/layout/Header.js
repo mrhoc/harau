@@ -23,10 +23,6 @@ const Header = () => {
         
     }
 
-  
-   
-    console.log('products',products);
-    console.log('productCat',productsCat);
     
     const menu = (
         <Menu

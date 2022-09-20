@@ -16,14 +16,14 @@ const Favorites=()=>{
         };
         axios(config)
           .then(function (response) {
-            console.log(response.data);
             setfavorites(response.data)
           })
           .catch(function (error) {
             console.log(error);
           });
       }, [reloadFoverites]);
-     
+      
+    
  
     return <>   
         <div className="PageHeader__Container-sc-19x4r8h-1 fVgVuB">
