@@ -1,8 +1,22 @@
 import React from 'react';
 import Sidebar from './Sidebar';
 import ListCategories from "./ListCategories";
-
+import { AppContext } from '../providers/Index';
+import { useEffect,useContext } from 'react';
 const LayoutProducts = ({children}) => {
+    const useAppContext = useContext(AppContext)
+    const {favorites,products } = useAppContext;
+    useEffect(()=>{
+        products&&products.map((d,index)=>{
+              favorites&&favorites.map(k=>{
+                if(k.key===d.key){
+                  d['liked']=true;
+                  console.log('liked');
+                }
+                return d;
+              })
+            })
+      },[favorites])
     return (
         <>
             <Sidebar></Sidebar>
