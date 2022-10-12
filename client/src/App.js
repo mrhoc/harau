@@ -1,3 +1,4 @@
+import React from 'react'
 import './App.css';
 import Header from './layout/Header';
 import RouteApp from './routes/Index';
@@ -10,20 +11,9 @@ function App() {
   const useAppContext = useContext(AppContext)
   const {setproducts, setproductsCat,setuser,user,favorites,currentUser,products } = useAppContext;
   
-  // useEffect(()=>{
-  //   console.log('favor change');
-  //   products&&products.map((d,index)=>{
-  //         favorites&&favorites.map(k=>{
-  //           if(k.key===d.key){
-  //             d['liked']=true;
-  //             console.log('liked');
-  //           }
-  //           return d;
-  //         })
-  //       })
-  // },[favorites])
-  // console.log(favorites);
   
+
+
   useEffect(() => {
     var config = {
       method: 'get',

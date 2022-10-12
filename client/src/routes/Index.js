@@ -1,3 +1,4 @@
+import React from 'react'
 import { Route, Routes } from "react-router-dom"
 import HomePage from "../pages/HomePage";
 import Market from "../pages/Market";
@@ -13,6 +14,7 @@ import { useContext } from "react";
 import Favorites from "../pages/Favorites";
 import Orders from "../pages/Orders";
 import OrdersDetail from "../pages/Orders-detail";
+import Test from "../pages/Test";
 const RouteApp = () => {
     const useAppContext = useContext(AppContext);
     const { currentUser } = useAppContext;
@@ -32,6 +34,7 @@ const RouteApp = () => {
                 </>}
                 <Route path="/signin" element={<Login />} />
                 <Route path="/contact-us" element={<Register />} />
+                <Route path="/test" element={<Test />} />
                 
             </Routes>
         </div>

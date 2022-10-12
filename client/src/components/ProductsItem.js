@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from "react-router-dom"
 import { AppContext } from "../providers/Index";
 import { useContext } from 'react'
@@ -66,6 +67,10 @@ const ProductsItem = ({ product }) => {
         }
     }
 
+    const hanlePlus=(s)=>{
+        
+    }
+
     const addCart=(product)=>{
         console.log(product);
     }
@@ -114,14 +119,14 @@ const ProductsItem = ({ product }) => {
                         </div>
                         <div className="QuantityInput__QuantityInputContainer-sc-1nd1l3z-0 cHinwM">
                             <div className="QuantityWrapper-zx68x-0 cnWqKW">
-                                <button data-test="minus-button" type="button" className="ant-btn Button-jgr7l8-0 minus QuantityButton-sc-1rjirov-0 hkvVgv ant-btn-round ant-btn-sm ant-btn-icon-only">
+                                <button onClick={()=>{hanlePlus('minus')}} data-test="minus-button" type="button" className="ant-btn Button-jgr7l8-0 minus QuantityButton-sc-1rjirov-0 hkvVgv ant-btn-round ant-btn-sm ant-btn-icon-only">
                                     <i aria-label="icon: minus" className="anticon anticon-minus">
                                         <svg viewBox="64 64 896 896" focusable="false" className data-icon="minus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
                                             <path d="M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z" />
                                         </svg>
                                     </i></button>
                                 <input data-test="quantity-input" type="text" min={0} className="QuantityInnerInput-sc-1i1jla2-0 hCeYQQ" value={1} style={{ transition: 'opacity 0.2s ease 0s', backgroundColor: 'rgb(250, 250, 250)', color: 'inherit', fontSize: 16, width: 44 }} />
-                                <button data-test="plus-button" type="button" className="ant-btn Button-jgr7l8-0 plus QuantityButton-sc-1rjirov-0 eYEupy ant-btn-round ant-btn-sm ant-btn-icon-only">
+                                <button onClick={()=>{hanlePlus('plus')}} data-test="plus-button" type="button" className="ant-btn Button-jgr7l8-0 plus QuantityButton-sc-1rjirov-0 eYEupy ant-btn-round ant-btn-sm ant-btn-icon-only">
                                     <i aria-label="icon: plus" className="anticon anticon-plus">
                                         <svg viewBox="64 64 896 896" focusable="false" className data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
                                             <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z" />

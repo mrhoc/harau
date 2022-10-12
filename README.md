@@ -1,70 +1,119 @@
-# Getting Started with Create React App
+# Node + Create React App + Docker Compose
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A project that runs a Node server and a create-react-app app via two separate containers, using Docker Compose.
 
-## Available Scripts
+## Development
 
-In the project directory, you can run:
+```
+docker-compose up
+```
 
-### `npm start`
+For development, the `server/` and `client/` directories have their own docker containers, which are configured via the `docker-compose.yml` file.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The client server is spun up at `localhost:3000` and it proxies internally to the server using the linked name as `server:8080`.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The local directories are mounted into the containers, so changes will reflect immediately. However, changes to package.json will likely need to a rebuild: `docker-compose down && docker-compose build && docker-compose up`.
 
-### `npm test`
+### Notes
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Adding new scss files
 
-### `npm run build`
+In a previous version of this, you needed to restart the client for new scss files to be recognized by the watch command. This may have changed (TODO: test if this still matters with react-scripts updates):
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+docker-compose restart client
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Installing npm dependencies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+All changes to `node_modules` should happen _inside_ the containers. Install any new dependencies by inside the container. You can do this via `docker-compose run`, but it’s easier to just upadte a running container and avoid having to rebuild everything:
 
-### `npm run eject`
+```
+docker-compose exec client
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Then inside:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+npm install --save <new_dependency>
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Production
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+docker-compose -f docker-compose.prod.yml up
+```
 
-## Learn More
+For production, this uses the Dockerfile at the root of the repo. It creates a static build of the client React app and runs Express inside server, which handles both the API and serving of React files.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+As a result, different code is executing to serve the React files, but all of the API calls should remain the same. The difference between development and production isn’t ideal, but it does offer the simplicity of having the entire app run in one server on one machine.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This is one of multiple ways a Node + React app could be setup, as suggested [here](https://daveceddia.com/create-react-app-express-production/):
 
-### Code Splitting
+- **Keep them together** - have Express serve both the API and React files
+- **Split them apart** - have Express API on one machine and the React files on another (e.g., on S3 and use CORS to access the API)
+- **Put the API behind a proxy** - use something like NGINX to proxy the Express API server and React static files separately
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+This project uses the “keep them together” approach. For better performance, you can set up a proxy (like Cloudflare) in between your server and the Internet to cache the static files. Or with some extra work you can fashion it to do either of the other two options.
 
-### Analyzing the Bundle Size
+## Notes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Using docker compose
 
-### Making a Progressive Web App
+I have `comp` aliased to `docker-compose` on my computer.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Start via:
 
-### Advanced Configuration
+```
+comp up
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+# or detached
+comp up -d
+```
 
-### Deployment
+Run a container of the server image via:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```
+comp run server /bin/bash
+```
 
-### `npm run build` fails to minify
+Check status:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+comp ps
+```
+
+Stop:
+
+```
+comp down
+```
+
+Run the production image:
+
+```
+comp -f docker-compose.prod.yml up
+```
+
+NOTE: if any dependencies change in package.json files, you probably will need to rebuild the container for the changes to appear, e.g.,
+
+```
+comp down
+comp build
+comp up
+```
+
+### Setup references
+
+References for setting up a Node project with Docker and docker-compose:
+
+- https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
+- https://blog.codeship.com/using-docker-compose-for-nodejs-development/
+- http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
+
+Express + React:
+
+- https://daveceddia.com/create-react-app-express-production/
+- http://ericsowell.com/blog/2017/5/16/create-react-app-and-express
+- https://medium.freecodecamp.org/how-to-make-create-react-app-work-with-a-node-backend-api-7c5c48acb1b0
+- https://medium.freecodecamp.org/how-to-host-a-website-on-s3-without-getting-lost-in-the-sea-e2b82aa6cd38

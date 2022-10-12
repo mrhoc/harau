@@ -1,5 +1,6 @@
+import React from 'react'
 import { Link } from "react-router-dom";
-const Checkout2 = () => {
+const Checkout3 = () => {
     return <div>
         <div className="CheckoutPage__Container-sc-10rj4ea-0 EalTZ">
             <div className="PageHeader__Container-sc-19x4r8h-1 kahPTg"><h2 className="PageHeader__Header-sc-19x4r8h-0 jTfioR"><span>Đặt hàng</span>
@@ -134,4 +135,4 @@ const Checkout2 = () => {
     </div>
 
 }
-export default Checkout2;
+export default Checkout3;

@@ -1,5 +1,7 @@
+import React from 'react'
 import { Link } from "react-router-dom";
-const Checkout3 = () => {
+
+const Checkout = () => {
     return <div>
         <div className="CheckoutPage__Container-sc-10rj4ea-0 EalTZ">
             <div className="PageHeader__Container-sc-19x4r8h-1 kahPTg"><h2 className="PageHeader__Header-sc-19x4r8h-0 jTfioR"><span>Đặt hàng</span>
@@ -21,7 +23,7 @@ const Checkout3 = () => {
                 </Link>
             </div>
             <div className="StepContainer-sc-193hmep-0 ldsFAs">
-                <div className="StepItem__UnderMOQ-sc-17m0775-6 bfVtZC"><span>Đơn hàng dưới giá trị tối thiểu</span></div>
+                {/* <div className="StepItem__UnderMOQ-sc-17m0775-6 bfVtZC"><span>Đơn hàng dưới giá trị tối thiểu</span></div> */}
                 <div className="StepItem-sc-17m0775-7 CheckoutStep1__StepItem-k6o3b0-0 icsiSe">
                     <div className="StepRow__StepBox-sc-7s4xr1-0 CheckoutStep1__StepBox-k6o3b0-2 iPSYdF">
                         <div className="StepRow-sc-7s4xr1-1 CheckoutStep1__StepRow-k6o3b0-3 kWPmLR">
@@ -35,13 +37,13 @@ const Checkout3 = () => {
                                             </svg>
                                         </div>
                                     </div>
-                                    KAMEREO
+                                    HARAU
                                 </div>
                             </div>
-                            <div className="StepCol-sc-1dfs1l2-0 CheckoutStep1__StepCol-k6o3b0-1 bBHXhC">
+                            {/* <div className="StepCol-sc-1dfs1l2-0 CheckoutStep1__StepCol-k6o3b0-1 bBHXhC">
                                 <div className="Label-sc-1t6hh05-0 duoMBh"><span>Đơn tối thiểu</span></div>
                                 <div className="Value-sc-15o9mgu-0 eKRzIr"><span className="Money-doxtx5-0 brYFgQ">300,000đ</span></div>
-                            </div>
+                            </div> */}
                             <div className="StepCol-sc-1dfs1l2-0 CheckoutStep1__StepCol-k6o3b0-1 bBHXhC">
                                 <div className="Label-sc-1t6hh05-0 duoMBh"><span>Thành tiền</span></div>
                                 <div color="#FE5043" className="Value-sc-15o9mgu-0 iGZmDm"><span className="Money-doxtx5-0 brYFgQ">90,000đ</span>
@@ -123,9 +125,9 @@ const Checkout3 = () => {
                             <div className="Value-sc-15o9mgu-0 eKRzIr"><span className="Money-doxtx5-0 brYFgQ">90,000đ</span></div>
                         </div>
                         <div className="Footer__ButtonWrapper-sc-17r70f1-1 eltBLd">
-                            <button type="button" className="ant-btn Button-jgr7l8-0 epExKW ant-btn-secondary"><span>Huỷ</span></button>
+                            <Link to={'/market'} className="ant-btn Button-jgr7l8-0 epExKW ant-btn-secondary"><span>Huỷ</span></Link>
                             <div style={{ width: '6pt' }} />
-                            <button type="button" className="ant-btn Button-jgr7l8-0 iPsOaJ ant-btn-primary"><span>Tiếp tục</span></button>
+                            <Link to={'/checkout/step/2'} className="ant-btn Button-jgr7l8-0 iPsOaJ ant-btn-primary"><span>Tiếp tục</span></Link>
                         </div>
                     </div>
                 </div>
@@ -134,4 +136,4 @@ const Checkout3 = () => {
     </div>
 
 }
-export default Checkout3;
+export default Checkout;
