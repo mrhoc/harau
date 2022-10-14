@@ -11,7 +11,7 @@ const HomePage = () => {
     const [bestPrice, setbestPrice] = useState([]);
     const [topnews, settopnews] = useState([]);
     const [banners, setbanners] = useState([]);
-
+    
     useEffect(() => {
         var config = {
             method: 'get',

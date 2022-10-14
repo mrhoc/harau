@@ -23,8 +23,8 @@ function App() {
     axios(config)
       .then(function (response) {
         let dt = response.data;
-        setproducts(dt.data)
-        setproductsCat(dt.data)
+        setproducts(dt.data.map(obj=>({...obj,sl:0})))
+        setproductsCat(dt.data.map(obj=>({...obj,sl:0})))
       })
       .catch(function (error) {
         console.log(error);

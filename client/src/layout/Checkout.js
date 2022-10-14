@@ -1,27 +1,81 @@
 import React from 'react'
 import { Link } from "react-router-dom";
-
+import { AppContext } from '../providers/Index';
+import { useContext } from 'react';
 const Checkout = () => {
+    const useAppContext = useContext(AppContext)
+    const { shopCart,setshopCart,products,setproducts } = useAppContext;
+    
+    const hanlePlus=(s,p)=>{
+        const index=[...products].findIndex(obj=>obj.key===p.key);
+        var new_sl=products[index].sl;
+        if(s=='plus'){
+            setproducts([...products],products[index].sl+=1);
+        }
+        else{
+            if(new_sl>0){
+                setproducts([...products],products[index].sl-=1);
+            }
+            else{
+                setproducts([...products],products[index].sl=0)
+            }
+          
+        }
+        
+    }
+
+    const renderShopCart=()=>{
+        return [...shopCart].map(item=>{
+            return <>
+                <tr className="StepItem__TableRow-sc-17m0775-4 OrderTable__TableRow-sc-1eckcw9-2 dNzToN">
+                                <td className="StepItem__TableCell-sc-17m0775-3 OrderTable__TableCell-sc-1eckcw9-1 hLshwS">
+                                    <div className="OrderTable__ImageWrapper-sc-1eckcw9-9 cGrmIw"><img loading="lazy" src={item.mainImage} alt={item.name} className="OrderTable__ItemImage-sc-1eckcw9-11 cseAdn" />
+                                    </div>
+                                </td>
+                                <td colSpan={2} className="StepItem__TableCell-sc-17m0775-3 OrderTable__TableCell-sc-1eckcw9-1 jAgyWF"><a href="/products/37895495-80a1-425c-8b41-08ff41cb1977" target="_blank">
+                                    <div className="Value-sc-15o9mgu-0 eKRzIr">
+                                        <div className="Value__Description-sc-15o9mgu-2 hemrKx">{item.name}</div>
+                                    </div>
+                                </a></td>
+                                <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS"><span className="Money-doxtx5-0 brYFgQ">{item.price.toLocaleString()}đ</span><span className="OrderTable__NoWrapText-sc-1eckcw9-5 fwXcGl">/Kg </span></td>
+                                <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS">
+                                    <div className="QuantityInput__QuantityInputContainer-sc-1nd1l3z-0 cHinwM">
+                                        <div className="QuantityWrapper-zx68x-0 cnWqKW">
+                                            <button data-test="minus-button" type="button" onClick={()=>{hanlePlus('minus',item)}} className="ant-btn Button-jgr7l8-0 minus QuantityButton-sc-1rjirov-0 hkvVgv ant-btn-round ant-btn-sm ant-btn-icon-only">
+                                                <i aria-label="icon: minus" className="anticon anticon-minus">
+                                                    <svg viewBox="64 64 896 896" focusable="false" className data-icon="minus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                                                        <path d="M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z" />
+                                                    </svg>
+                                                </i></button>
+                                            <input data-test="quantity-input" type="text" min={0} className="QuantityInnerInput-sc-1i1jla2-0 hCeYQQ" value={item.sl} style={{ transition: 'opacity 0.2s ease 0s', backgroundColor: 'rgb(250, 250, 250)', color: 'inherit', fontSize: 16, width: 44 }} />
+                                            <button data-test="plus-button" type="button" onClick={()=>{hanlePlus('plus',item)}} className="ant-btn Button-jgr7l8-0 plus QuantityButton-sc-1rjirov-0 eYEupy ant-btn-round ant-btn-sm ant-btn-icon-only">
+                                                <i aria-label="icon: plus" className="anticon anticon-plus">
+                                                    <svg viewBox="64 64 896 896" focusable="false" className data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                                                        <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z" />
+                                                        <path d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z" />
+                                                    </svg>
+                                                </i></button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS"><span className="Money-doxtx5-0 brYFgQ">{item.price*item.sl.toLocaleString()}đ</span>&nbsp;<span className="OrderTable__NoWrapText-sc-1eckcw9-5 fwXcGl">(0% VAT)</span>
+                                </td>
+                                <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS">
+                                    <button type="button" className="ant-btn Button-jgr7l8-0 OrderTable__Button-sc-1eckcw9-3 hfwshL ant-btn-secondary ant-btn-circle ant-btn-sm ant-btn-icon-only ant-btn-background-ghost" style={{ color: 'rgba(0, 0, 0, 0.54)' }}><i aria-label="icon: delete" className="anticon anticon-delete">
+                                        <svg viewBox="64 64 896 896" focusable="false" className data-icon="delete" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                                            <path d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z" />
+                                        </svg>
+                                    </i></button>
+                                </td>
+                            </tr>
+            </>
+        })
+    }
     return <div>
         <div className="CheckoutPage__Container-sc-10rj4ea-0 EalTZ">
             <div className="PageHeader__Container-sc-19x4r8h-1 kahPTg"><h2 className="PageHeader__Header-sc-19x4r8h-0 jTfioR"><span>Đặt hàng</span>
             </h2></div>
-            <div className="Checkout__StepContainer-oij88w-3 LDHVZ">
-                <Link to={'/checkout/step/1'}  className="ant-btn Button-jgr7l8-0 selected Checkout__Step-oij88w-2 kFIMIV ant-btn-primary ant-btn-circle">
-                    <div className="Checkout__StepNumber-oij88w-0 hgCJJe">1</div>
-                    <div className="text-align-left Checkout__StepLabel-oij88w-1 jsDJUV"><span>Giỏ hàng</span></div>
-                </Link>
-                <div className="Checkout__StepDivider-oij88w-4 dQjYUn" />
-                <Link to={'/checkout/step/2'}  className="ant-btn Button-jgr7l8-0 Checkout__Step-oij88w-2 kYIKsw ant-btn-circle">
-                    <div className="Checkout__StepNumber-oij88w-0 hgCJJe">2</div>
-                    <div className="Checkout__StepLabel-oij88w-1 jsDJUV"><span>Giao hàng</span></div>
-                </Link>
-                <div className="Checkout__StepDivider-oij88w-4 dQjYUn" />
-                <Link to={'/checkout/step/3'}  className="ant-btn Button-jgr7l8-0 Checkout__Step-oij88w-2 kYIKsw ant-btn-circle">
-                    <div className="Checkout__StepNumber-oij88w-0 hgCJJe">3</div>
-                    <div className="text-align-right Checkout__StepLabel-oij88w-1 jsDJUV"><span>Chốt đơn hàng</span></div>
-                </Link>
-            </div>
+            
             <div className="StepContainer-sc-193hmep-0 ldsFAs">
                 {/* <div className="StepItem__UnderMOQ-sc-17m0775-6 bfVtZC"><span>Đơn hàng dưới giá trị tối thiểu</span></div> */}
                 <div className="StepItem-sc-17m0775-7 CheckoutStep1__StepItem-k6o3b0-0 icsiSe">
@@ -73,47 +127,7 @@ const Checkout = () => {
                             </tr>
                         </thead>
                         <tbody className="StepItem__TableBody-sc-17m0775-2 OrderTable__TableBody-sc-1eckcw9-0 bxhGmc">
-                            <tr className="StepItem__TableRow-sc-17m0775-4 OrderTable__TableRow-sc-1eckcw9-2 dNzToN">
-                                <td className="StepItem__TableCell-sc-17m0775-3 OrderTable__TableCell-sc-1eckcw9-1 hLshwS">
-                                    <div className="OrderTable__ImageWrapper-sc-1eckcw9-9 cGrmIw"><img loading="lazy" src="https://images-handler.kamereo.vn/eyJidWNrZXQiOiJpbWFnZS1oYW5kbGVyLXByb2QiLCJrZXkiOiJzdXBwbGllci82NTQvUFJPRFVDVF9JTUFHRS9kMTZhMjdhNi1lNDlmLTQwY2MtOGNjZC04YzIxNTc1NjdmZjMuanBnIn0=" alt="Bí ngòi vàng" className="OrderTable__ItemImage-sc-1eckcw9-11 cseAdn" />
-                                    </div>
-                                </td>
-                                <td colSpan={2} className="StepItem__TableCell-sc-17m0775-3 OrderTable__TableCell-sc-1eckcw9-1 jAgyWF"><a href="/products/37895495-80a1-425c-8b41-08ff41cb1977" target="_blank">
-                                    <div className="Value-sc-15o9mgu-0 eKRzIr">
-                                        <div className="Value__Description-sc-15o9mgu-2 hemrKx">Bí ngòi vàng</div>
-                                    </div>
-                                </a></td>
-                                <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS"><span className="Money-doxtx5-0 brYFgQ">45,000đ</span><span className="OrderTable__NoWrapText-sc-1eckcw9-5 fwXcGl">/Kg </span></td>
-                                <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS">
-                                    <div className="QuantityInput__QuantityInputContainer-sc-1nd1l3z-0 cHinwM">
-                                        <div className="QuantityWrapper-zx68x-0 cnWqKW">
-                                            <button data-test="minus-button" type="button" className="ant-btn Button-jgr7l8-0 minus QuantityButton-sc-1rjirov-0 hkvVgv ant-btn-round ant-btn-sm ant-btn-icon-only">
-                                                <i aria-label="icon: minus" className="anticon anticon-minus">
-                                                    <svg viewBox="64 64 896 896" focusable="false" className data-icon="minus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
-                                                        <path d="M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z" />
-                                                    </svg>
-                                                </i></button>
-                                            <input data-test="quantity-input" type="text" min={0} className="QuantityInnerInput-sc-1i1jla2-0 hCeYQQ" defaultValue={2} style={{ transition: 'opacity 0.2s ease 0s', backgroundColor: 'rgb(250, 250, 250)', color: 'inherit', fontSize: 16, width: 44 }} />
-                                            <button data-test="plus-button" type="button" className="ant-btn Button-jgr7l8-0 plus QuantityButton-sc-1rjirov-0 eYEupy ant-btn-round ant-btn-sm ant-btn-icon-only">
-                                                <i aria-label="icon: plus" className="anticon anticon-plus">
-                                                    <svg viewBox="64 64 896 896" focusable="false" className data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
-                                                        <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z" />
-                                                        <path d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z" />
-                                                    </svg>
-                                                </i></button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS"><span className="Money-doxtx5-0 brYFgQ">90,000đ</span>&nbsp;<span className="OrderTable__NoWrapText-sc-1eckcw9-5 fwXcGl">(0% VAT)</span>
-                                </td>
-                                <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS">
-                                    <button type="button" className="ant-btn Button-jgr7l8-0 OrderTable__Button-sc-1eckcw9-3 hfwshL ant-btn-secondary ant-btn-circle ant-btn-sm ant-btn-icon-only ant-btn-background-ghost" style={{ color: 'rgba(0, 0, 0, 0.54)' }}><i aria-label="icon: delete" className="anticon anticon-delete">
-                                        <svg viewBox="64 64 896 896" focusable="false" className data-icon="delete" width="1em" height="1em" fill="currentColor" aria-hidden="true">
-                                            <path d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z" />
-                                        </svg>
-                                    </i></button>
-                                </td>
-                            </tr>
+                            {renderShopCart()}
                         </tbody>
                     </table>
                 </div>

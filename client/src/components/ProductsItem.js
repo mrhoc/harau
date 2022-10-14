@@ -4,11 +4,12 @@ import { AppContext } from "../providers/Index";
 import { useContext } from 'react'
 import { isEmpty } from "lodash";
 import axios from "axios";
-import {Button, notification} from 'antd'
+import {Button, notification} from 'antd';
+import { useEffect } from 'react';
 const ProductsItem = ({ product }) => {
     var token=localStorage.getItem('ajs_user_id')
     const useAppContext = useContext(AppContext)
-    const { currentUser,setfavorites,setreloadFoverites,reloadFoverites } = useAppContext;
+    const { currentUser,setfavorites,setreloadFoverites,reloadFoverites,products,setproducts,shopCart,setshopCart } = useAppContext;
     
 
     const openNotification = (mess) => {
@@ -67,13 +68,31 @@ const ProductsItem = ({ product }) => {
         }
     }
 
-    const hanlePlus=(s)=>{
+    const hanlePlus=(s,p)=>{
+        const index=[...products].findIndex(obj=>obj.key===p.key);
+        var new_sl=products[index].sl;
+        if(s=='plus'){
+            setproducts([...products],products[index].sl+=1);
+        }
+        else{
+            if(new_sl>0){
+                setproducts([...products],products[index].sl-=1);
+            }
+            else{
+                setproducts([...products],products[index].sl=0)
+            }
+          
+        }
         
     }
-
-    const addCart=(product)=>{
-        console.log(product);
-    }
+    
+    //add shop cart
+    useEffect(() => {
+        const cart=[...products].filter(i=>i.sl>0)
+        setshopCart(cart);    
+    }, [products]);
+ 
+    
     return <>
         <button type="button" className="ant-btn Button-jgr7l8-0 Favorite-tn0i37-1 hrXIPJ ant-btn-secondary ant-btn-circle">
 
@@ -115,18 +134,18 @@ const ProductsItem = ({ product }) => {
                     <div className="Details__FlexContainer-deqbu8-3 hkVFdU">
                         <div className="ProductNote__NoteAction-sc-1ht25tx-1 zgsGq">
                             <button type="button" className="ant-btn Button-jgr7l8-0 ProductNote__AddNoteButton-sc-1ht25tx-2 bZBNJq ant-btn-link ant-btn-sm">
-                                <a href="/signin"><span>Ghi chú</span></a></button>
+                                <a href="#"><span>Ghi chú</span></a></button>
                         </div>
                         <div className="QuantityInput__QuantityInputContainer-sc-1nd1l3z-0 cHinwM">
                             <div className="QuantityWrapper-zx68x-0 cnWqKW">
-                                <button onClick={()=>{hanlePlus('minus')}} data-test="minus-button" type="button" className="ant-btn Button-jgr7l8-0 minus QuantityButton-sc-1rjirov-0 hkvVgv ant-btn-round ant-btn-sm ant-btn-icon-only">
+                                <button onClick={()=>{hanlePlus('minus',product)}} data-test="minus-button" type="button" className="ant-btn Button-jgr7l8-0 minus QuantityButton-sc-1rjirov-0 hkvVgv ant-btn-round ant-btn-sm ant-btn-icon-only">
                                     <i aria-label="icon: minus" className="anticon anticon-minus">
                                         <svg viewBox="64 64 896 896" focusable="false" className data-icon="minus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
                                             <path d="M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z" />
                                         </svg>
                                     </i></button>
-                                <input data-test="quantity-input" type="text" min={0} className="QuantityInnerInput-sc-1i1jla2-0 hCeYQQ" value={1} style={{ transition: 'opacity 0.2s ease 0s', backgroundColor: 'rgb(250, 250, 250)', color: 'inherit', fontSize: 16, width: 44 }} />
-                                <button onClick={()=>{hanlePlus('plus')}} data-test="plus-button" type="button" className="ant-btn Button-jgr7l8-0 plus QuantityButton-sc-1rjirov-0 eYEupy ant-btn-round ant-btn-sm ant-btn-icon-only">
+                                <input data-test="quantity-input" type="text" min={0} className="QuantityInnerInput-sc-1i1jla2-0 hCeYQQ" value={product.sl} style={{ transition: 'opacity 0.2s ease 0s', backgroundColor: 'rgb(250, 250, 250)', color: 'inherit', fontSize: 16, width: 44 }} />
+                                <button onClick={()=>{hanlePlus('plus',product)}} data-test="plus-button" type="button" className="ant-btn Button-jgr7l8-0 plus QuantityButton-sc-1rjirov-0 eYEupy ant-btn-round ant-btn-sm ant-btn-icon-only">
                                     <i aria-label="icon: plus" className="anticon anticon-plus">
                                         <svg viewBox="64 64 896 896" focusable="false" className data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
                                             <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z" />
