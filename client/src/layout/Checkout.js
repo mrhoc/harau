@@ -24,6 +24,15 @@ const Checkout = () => {
         
     }
 
+    const tong_tien=()=>{
+        let sum=[...shopCart].reduce((total,curValue)=>{
+            return total+curValue.sl*curValue.price
+        },0)
+        return sum.toLocaleString();
+    }
+
+   
+
     const renderShopCart=()=>{
         return [...shopCart].map(item=>{
             return <>
@@ -58,7 +67,7 @@ const Checkout = () => {
                                         </div>
                                     </div>
                                 </td>
-                                <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS"><span className="Money-doxtx5-0 brYFgQ">{item.price*item.sl.toLocaleString()}đ</span>&nbsp;<span className="OrderTable__NoWrapText-sc-1eckcw9-5 fwXcGl">(0% VAT)</span>
+                                <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS"><span className="Money-doxtx5-0 brYFgQ">{(item.price*item.sl).toLocaleString()}đ</span>&nbsp;<span className="OrderTable__NoWrapText-sc-1eckcw9-5 fwXcGl">(0% VAT)</span>
                                 </td>
                                 <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS">
                                     <button type="button" className="ant-btn Button-jgr7l8-0 OrderTable__Button-sc-1eckcw9-3 hfwshL ant-btn-secondary ant-btn-circle ant-btn-sm ant-btn-icon-only ant-btn-background-ghost" style={{ color: 'rgba(0, 0, 0, 0.54)' }}><i aria-label="icon: delete" className="anticon anticon-delete">
@@ -98,11 +107,11 @@ const Checkout = () => {
                                 <div className="Label-sc-1t6hh05-0 duoMBh"><span>Đơn tối thiểu</span></div>
                                 <div className="Value-sc-15o9mgu-0 eKRzIr"><span className="Money-doxtx5-0 brYFgQ">300,000đ</span></div>
                             </div> */}
-                            <div className="StepCol-sc-1dfs1l2-0 CheckoutStep1__StepCol-k6o3b0-1 bBHXhC">
+                            {/* <div className="StepCol-sc-1dfs1l2-0 CheckoutStep1__StepCol-k6o3b0-1 bBHXhC">
                                 <div className="Label-sc-1t6hh05-0 duoMBh"><span>Thành tiền</span></div>
                                 <div color="#FE5043" className="Value-sc-15o9mgu-0 iGZmDm"><span className="Money-doxtx5-0 brYFgQ">90,000đ</span>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <table className="StepItem__Table-sc-17m0775-0 BAdQC">
@@ -136,7 +145,7 @@ const Checkout = () => {
                         <div className="CartTotal-luoaet-0 felnlH">
                             <div className="Value-sc-15o9mgu-0 eKRzIr"><span>Tổng giỏ hàng</span></div>
                             <div style={{ flex: '1 1 0%' }} />
-                            <div className="Value-sc-15o9mgu-0 eKRzIr"><span className="Money-doxtx5-0 brYFgQ">90,000đ</span></div>
+                            <div className="Value-sc-15o9mgu-0 eKRzIr"><span className="Money-doxtx5-0 brYFgQ">{tong_tien()}đ</span></div>
                         </div>
                         <div className="Footer__ButtonWrapper-sc-17r70f1-1 eltBLd">
                             <Link to={'/market'} className="ant-btn Button-jgr7l8-0 epExKW ant-btn-secondary"><span>Huỷ</span></Link>
