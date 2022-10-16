@@ -2604,3 +2604,14 @@ img {
   text-align: right;
   margin-left: auto;
 }
+.cNaTTf {
+  position: absolute;
+  top: 4px;
+  right: 0px;
+  width: 20px;
+  height: 20px;
+  background: rgb(255, 72, 82);
+  text-align: center;
+  color: rgb(255, 255, 255);
+  border-radius: 50%;
+}

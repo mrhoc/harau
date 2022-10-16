@@ -1,5 +1,5 @@
 import React from 'react'
-import { useContext } from 'react';
+import { useContext,useEffect } from 'react';
 import logo from '../assets/images/logo.png'
 import { AppContext } from '../providers/Index';
 import { Link, useNavigate } from 'react-router-dom';
@@ -10,8 +10,12 @@ import { DownOutlined, SmileOutlined,LogoutOutlined } from '@ant-design/icons';
 const Header = () => {
     const useAppContext=useContext(AppContext);
     const {isOpenMenu,setisOpenMenu,setactiveCat,settxtSearch,txtSearch,setproductsCat,products,
-    currentUser,setcurrentUser,productsCat,user}=useAppContext;
-    const navigate=useNavigate()
+    currentUser,setcurrentUser,productsCat,user,count,setcount,shopCart}=useAppContext;
+    const navigate=useNavigate();
+
+    useEffect(()=>{
+        setcount(shopCart.length)
+       },[products,shopCart])
 
     const handleOpenMenu = () => {
         setisOpenMenu(!isOpenMenu);
@@ -24,7 +28,7 @@ const Header = () => {
         
     }
 
-    
+
     const menu = (
         <Menu
           items={[
@@ -109,6 +113,7 @@ const Header = () => {
                 <nav className="TopNav__RightNav-sc-1g6u0p6-19 ldzGYq">
                     <Link className="TopNav__TopNavLinkItem-sc-1g6u0p6-7 bUlzUw" to="/Checkout/step/1">
                         <div className="SVGIcon-uyvh4z-0 bQEYqa">
+                            <span className='num-cart cNaTTf'>{count}</span>
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width={24} fill="none" viewBox="0 0 24 24" className="injected-svg"
                                     data-src="/static/media/Cart.b445db40.svg" xmlnsXlink="http://www.w3.org/1999/xlink">
@@ -138,6 +143,7 @@ const Header = () => {
                 <nav className="TopNav__RightNav-sc-1g6u0p6-19 ldzGYq">
                     <Link className="TopNav__TopNavLinkItem-sc-1g6u0p6-7 bUlzUw" to="/signin">
                         <div className="SVGIcon-uyvh4z-0 bQEYqa">
+                            {/* <span className='num-cart cNaTTf'>{count}</span> */}
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width={24} fill="none" viewBox="0 0 24 24" className="injected-svg"
                                     data-src="/static/media/Cart.b445db40.svg" xmlnsXlink="http://www.w3.org/1999/xlink">

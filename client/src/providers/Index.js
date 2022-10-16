@@ -14,6 +14,7 @@ const AppProviders = ({ children }) => {
    const [ordersKey, setordersKey] = useState([])
    const [detail, setdetail] = useState([])
    const [shopCart, setshopCart] = useState([])
+   const [count, setcount] = useState(0)
 
    const [favorites, setfavorites] = useState([])
    const [activeCat, setactiveCat] = useState({})
@@ -37,7 +38,8 @@ const AppProviders = ({ children }) => {
          ordersKey,setordersKey,
          detail,setdetail,
          user,setuser,
-         shopCart,setshopCart
+         shopCart,setshopCart,
+         count,setcount
 
          
       }

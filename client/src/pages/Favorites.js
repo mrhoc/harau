@@ -17,14 +17,16 @@ const Favorites=()=>{
         };
         axios(config)
           .then(function (response) {
-            setfavorites(response.data)
+            let dt = response.data;
+       
+            setfavorites(dt.map(obj=>({...obj,sl:0})))
           })
           .catch(function (error) {
             console.log(error);
           });
       }, [reloadFoverites]);
       
-    console.log(favorites);
+    console.log('favorites',favorites);
  
     return <>   
         <div className="PageHeader__Container-sc-19x4r8h-1 fVgVuB">

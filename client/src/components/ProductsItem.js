@@ -1,15 +1,16 @@
 import React from 'react'
-import { Link } from "react-router-dom"
+import { Link,useNavigate } from "react-router-dom"
 import { AppContext } from "../providers/Index";
 import { useContext } from 'react'
 import { isEmpty } from "lodash";
 import axios from "axios";
 import {Button, notification} from 'antd';
 import { useEffect } from 'react';
+
 const ProductsItem = ({ product }) => {
     var token=localStorage.getItem('ajs_user_id')
     const useAppContext = useContext(AppContext)
-    const { currentUser,setfavorites,setreloadFoverites,reloadFoverites,products,setproducts,shopCart,setshopCart } = useAppContext;
+    const { currentUser,setfavorites,favorites,setreloadFoverites,reloadFoverites,products,setproducts,shopCart,setshopCart,setcount } = useAppContext;
     
 
     const openNotification = (mess) => {
@@ -68,31 +69,44 @@ const ProductsItem = ({ product }) => {
         }
     }
 
+    const navigate=useNavigate()
+    
     const hanlePlus=(s,p)=>{
         const index=[...products].findIndex(obj=>obj.key===p.key);
+        const index2=[...favorites].findIndex(obj=>obj.key===p.key);
         var new_sl=products[index].sl;
-        if(s=='plus'){
-            setproducts([...products],products[index].sl+=1);
-        }
-        else{
-            if(new_sl>0){
-                setproducts([...products],products[index].sl-=1);
+
+        if(currentUser.userName){
+            if(s==='plus'){
+                setproducts([...products],products[index].sl+=1);
+                // setfavorites([...favorites],favorites[index2].sl+=1);
+                
             }
             else{
-                setproducts([...products],products[index].sl=0)
+                if(new_sl>1){
+                    setproducts([...products],products[index].sl-=1);
+                    // setfavorites([...favorites],favorites[index2].sl-=1);
+                }
+                else{
+                    setproducts([...products],products[index].sl=0)
+                    // setfavorites([...favorites],favorites[index2].sl=0)
+                }
+              
             }
-          
         }
+
+        else{
+            navigate('/signin')
+        }
+        const cart=[...products].filter(i=>i.sl>0)
+        setshopCart(cart);  
         
     }
     
-    //add shop cart
-    useEffect(() => {
-        const cart=[...products].filter(i=>i.sl>0)
-        setshopCart(cart);    
-    }, [products]);
- 
+   
     
+  
+
     return <>
         <button type="button" className="ant-btn Button-jgr7l8-0 Favorite-tn0i37-1 hrXIPJ ant-btn-secondary ant-btn-circle">
 
