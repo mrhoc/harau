@@ -75,13 +75,16 @@ const ProductsItem = ({ product }) => {
         const index=[...products].findIndex(obj=>obj.key===p.key);
         const index2=[...favorites].findIndex(obj=>obj.key===p.key);
         var new_sl=[...products][index].sl;
-        // var new_sl1=favorites[index2].sl;
+
        
         if(currentUser.userName){
             if(s==='plus'){
                 setproducts([...products],products[index].sl+=1);
-                // setfavorites([...favorites],favorites[index2].sl+=1);
-                console.log({products,favorites});
+                
+                if(window.location.pathname=='/favorites'){
+                    setfavorites([...favorites],favorites[index2].sl+=1);
+                }
+                
             }
             else{
                 if(new_sl>1){
@@ -92,14 +95,7 @@ const ProductsItem = ({ product }) => {
                     setproducts([...products],products[index].sl=0)
                     
                 }
-                //  if(new_sl1>1){
-                  
-                //     setfavorites([...favorites],favorites[index2].sl-=1);
-                // }
-                // else{
-                  
-                //     setfavorites([...favorites],favorites[index2].sl=0)
-                // }
+               
               
             }
         }

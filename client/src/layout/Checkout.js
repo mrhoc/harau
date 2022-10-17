@@ -24,7 +24,7 @@ const Checkout = () => {
         const index = [...products].findIndex(obj => obj.key === p.key);
         const index1 = [...favorites].findIndex(obj => obj.key === p.key);
         var new_sl = products[index].sl;
-        var new_sl1 = favorites[index].sl;
+   
 
         if (s == 'plus') {
             setproducts([...products], products[index].sl += 1);
@@ -36,12 +36,7 @@ const Checkout = () => {
             else {
                 setproducts([...products], products[index].sl = 1)
             }
-            if (new_sl1 >= 2) {
-                setfavorites([...favorites], favorites[index].sl -= 1);
-            }
-            else {
-                setfavorites([...favorites], favorites[index].sl = 1)
-            }
+           
 
         }
         const cart = [...products].filter(i => i.sl > 0)
@@ -60,12 +55,13 @@ const Checkout = () => {
         if (index !== -1) {
             console.log(1);
             let removeCart = [...shopCart];
+            // setreloadFoverites(!reloadFoverites);
             setproducts([...products], products[index2].sl = 0)
-            setfavorites([...favorites], favorites[index3].sl = 0);
+            // setfavorites([...favorites], favorites[index3].sl = 0);
            
             removeCart.splice(index, 1)
             setshopCart(removeCart)
-            setreloadFoverites(!reloadFoverites);
+           
         }
 
     }
