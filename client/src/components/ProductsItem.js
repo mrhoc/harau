@@ -74,23 +74,32 @@ const ProductsItem = ({ product }) => {
     const hanlePlus=(s,p)=>{
         const index=[...products].findIndex(obj=>obj.key===p.key);
         const index2=[...favorites].findIndex(obj=>obj.key===p.key);
-        var new_sl=products[index].sl;
-
+        var new_sl=[...products][index].sl;
+        // var new_sl1=favorites[index2].sl;
+       
         if(currentUser.userName){
             if(s==='plus'){
                 setproducts([...products],products[index].sl+=1);
-                setfavorites([...favorites],favorites[index2].sl+=1);
-                
+                // setfavorites([...favorites],favorites[index2].sl+=1);
+                console.log({products,favorites});
             }
             else{
                 if(new_sl>1){
                     setproducts([...products],products[index].sl-=1);
-                    setfavorites([...favorites],favorites[index2].sl-=1);
+                   
                 }
                 else{
                     setproducts([...products],products[index].sl=0)
-                    setfavorites([...favorites],favorites[index2].sl=0)
+                    
                 }
+                //  if(new_sl1>1){
+                  
+                //     setfavorites([...favorites],favorites[index2].sl-=1);
+                // }
+                // else{
+                  
+                //     setfavorites([...favorites],favorites[index2].sl=0)
+                // }
               
             }
         }
@@ -158,7 +167,7 @@ const ProductsItem = ({ product }) => {
                                             <path d="M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z" />
                                         </svg>
                                     </i></button>
-                                <input data-test="quantity-input" type="text" min={0} className="QuantityInnerInput-sc-1i1jla2-0 hCeYQQ" value={product.sl} style={{ transition: 'opacity 0.2s ease 0s', backgroundColor: 'rgb(250, 250, 250)', color: 'inherit', fontSize: 16, width: 44 }} />
+                                <input data-test="quantity-input" readOnly type="text" min={0} className="QuantityInnerInput-sc-1i1jla2-0 hCeYQQ"  value={product.sl} style={{ transition: 'opacity 0.2s ease 0s', backgroundColor: 'rgb(250, 250, 250)', color: 'inherit', fontSize: 16, width: 44 }} />
                                 <button onClick={()=>{hanlePlus('plus',product)}} data-test="plus-button" type="button" className="ant-btn Button-jgr7l8-0 plus QuantityButton-sc-1rjirov-0 eYEupy ant-btn-round ant-btn-sm ant-btn-icon-only">
                                     <i aria-label="icon: plus" className="anticon anticon-plus">
                                         <svg viewBox="64 64 896 896" focusable="false" className data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true">

@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { DatePicker, Space } from 'antd';
 import axios from 'axios';
 const Checkout = () => {
-    const [deliveryInfoTime, setdeliveryInfoTime] = useState();
+    const [deliveryInfoTime, setdeliveryInfoTime] = useState(new Date());
     var token = localStorage.getItem('ajs_user_id')
     const { RangePicker } = DatePicker;
     const onChange = (value, dateString) => {
@@ -17,7 +17,7 @@ const Checkout = () => {
 
 
     };
-
+    console.log(deliveryInfoTime);
     const useAppContext = useContext(AppContext)
     const { shopCart,user, setshopCart, products, setproducts, setcount, favorites, setfavorites, setreloadFoverites, reloadFoverites, currentUser } = useAppContext;
     const hanlePlus = (s, p) => {
@@ -61,10 +61,11 @@ const Checkout = () => {
             console.log(1);
             let removeCart = [...shopCart];
             setproducts([...products], products[index2].sl = 0)
-            setfavorites([...favorites], favorites[index2].sl = 0);
-            setreloadFoverites(!reloadFoverites);
+            setfavorites([...favorites], favorites[index3].sl = 0);
+           
             removeCart.splice(index, 1)
             setshopCart(removeCart)
+            setreloadFoverites(!reloadFoverites);
         }
 
     }
@@ -89,7 +90,7 @@ const Checkout = () => {
         let sum = [...shopCart].reduce((total, curValue) => {
             return total + curValue.sl * curValue.price
         }, 0)
-        return sum.toLocaleString();
+        return sum;
 
     }
 
@@ -144,29 +145,31 @@ const Checkout = () => {
 
     const handleOrders = () => {
 
-        var payload_items = JSON.stringify(shopCart);
+       var custom_shopcart=[...shopCart].map(item=>{
+        return {...item,ProductCode:item.code,ProductName:item.name,amount:item.price*item.sl,quantity:item.sl}
+       })
     
         var data = JSON.stringify({
             "customerInfo": user,
             "deliveryInfo": {
-                "address": user.address,
+                "address": user.address==null?user.phoneNumber:user.address,
                 "time": deliveryInfoTime,
                 "note": "string"
             },
             "paymentInfo": {
-                "totalAmount": tong_tien(),
+                "totalAmount":parseInt(tong_tien()),
                 "paymentMethod": 1,
                 "totalDiscountAmount": 0,
-                "totalPaymentAmount": tong_tien()
+                "totalPaymentAmount": parseInt(tong_tien())
             },
-            "items": shopCart
+            "items": custom_shopcart
         });
         console.log(data);
 
         var config = {
             method: 'post',
             url: '/api/orders',
-            headers: { Authorization: `Bearer ${token}` },
+            headers: { Authorization: `Bearer ${token}`,'Content-Type': 'application/json' },
             data: data
         };
 
@@ -203,7 +206,7 @@ const Checkout = () => {
                                 </div>
                             </div>
                             <div className="StepCol-sc-1dfs1l2-0 CheckoutStep1__StepCol-k6o3b0-1 bBHXhC">
-                                <div className="Label-sc-1t6hh05-0 duoMBh"><span>Thời gian giao hàng</span></div>
+                                <div className="Label-sc-1t6hh05-0 duoMBh"><span>Ngày giao hàng</span></div>
                                 <div className="Value-sc-15o9mgu-0 eKRzIr">
                                     <Space direction="vertical" size={12}>
                                         <DatePicker showTime onChange={onChange} onOk={onOk} />
@@ -249,7 +252,7 @@ const Checkout = () => {
                         <div className="CartTotal-luoaet-0 felnlH">
                             <div className="Value-sc-15o9mgu-0 eKRzIr"><span>Tổng giỏ hàng</span></div>
                             <div style={{ flex: '1 1 0%' }} />
-                            <div className="Value-sc-15o9mgu-0 eKRzIr"><span className="Money-doxtx5-0 brYFgQ">{tong_tien()}đ</span></div>
+                            <div className="Value-sc-15o9mgu-0 eKRzIr"><span className="Money-doxtx5-0 brYFgQ">{tong_tien().toLocaleString()}đ</span></div>
                         </div>
                         <div className="Footer__ButtonWrapper-sc-17r70f1-1 eltBLd" style={{ 'justify-content': 'flex-end' }}>
 

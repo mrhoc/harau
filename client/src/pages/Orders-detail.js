@@ -3,6 +3,8 @@ import axios from "axios";
 import { useEffect, useContext } from "react";
 import { AppContext } from "../providers/Index";
 import {Link} from 'react-router-dom'
+import Moment from 'moment';
+
 const OrdersDetail = () => {
     var token = localStorage.getItem('ajs_user_id')
     const useAppContext = useContext(AppContext)
@@ -56,8 +58,8 @@ const OrdersDetail = () => {
                         <div className="ant-row" style={{ marginLeft: '-4px', marginRight: '-4px' }}>
                             <div className="ant-col ant-col-sm-12 ant-col-lg-9" style={{ paddingLeft: 4, paddingRight: 4 }}>
                                 <div className="OrderSummary__InfoRow-ugckj3-0 cVHuBw"><span className="styledComponents__Label-cp2vq4-2 gjrqGn"><span>Mã đơn hàng</span></span><span className="OrderSummary__Value-ugckj3-4 dTwnQL" style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{detail.key}</span></div>
-                                <div className="OrderSummary__InfoRow-ugckj3-0 cVHuBw"><span className="styledComponents__Label-cp2vq4-2 gjrqGn"><span>Ngày đặt hàng</span></span><span className="OrderSummary__Value-ugckj3-4 dTwnQL">16:31 19/09/2022</span></div>
-                                <div className="OrderSummary__InfoRow-ugckj3-0 cVHuBw"><span className="styledComponents__Label-cp2vq4-2 gjrqGn"><span>Ngày giao hàng</span></span><span className="OrderSummary__Value-ugckj3-4 dTwnQL">09:00-11:00 20/09/2022</span></div>
+                                <div className="OrderSummary__InfoRow-ugckj3-0 cVHuBw"><span className="styledComponents__Label-cp2vq4-2 gjrqGn"><span>Ngày đặt hàng</span></span><span className="OrderSummary__Value-ugckj3-4 dTwnQL">{Moment(detail.createdAt).format('DD-MM-YYYY')}</span></div>
+                                <div className="OrderSummary__InfoRow-ugckj3-0 cVHuBw"><span className="styledComponents__Label-cp2vq4-2 gjrqGn"><span>Ngày giao hàng</span></span><span className="OrderSummary__Value-ugckj3-4 dTwnQL">{}</span></div>
                                 <div className="OrderSummary__InfoRow-ugckj3-0 cVHuBw"><span className="styledComponents__Label-cp2vq4-2 gjrqGn"><span>Người đặt hàng</span></span><span className="OrderSummary__Value-ugckj3-4 dTwnQL">Admin</span></div>
                                 <div className="OrderSummary__InfoRow-ugckj3-0 cVHuBw"><span className="styledComponents__Label-cp2vq4-2 gjrqGn"><span>Tên cửa hàng</span></span><span className="OrderSummary__Value-ugckj3-4 dTwnQL">HARAU</span></div>
                             </div>

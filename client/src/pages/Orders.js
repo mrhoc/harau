@@ -55,7 +55,7 @@ const Orders = () => {
                     <div className="OrderTable__CellLabel-sc-1dw820r-1 dOpsoI">
                         <span>Ngày đặt hàng</span>
                     </div>
-                    <div className="OrderTable__styleDiv-sc-1dw820r-2 no-wrap OrderTable__CellValue-sc-1dw820r-3 icoZsW"></div>
+                    <div className="OrderTable__styleDiv-sc-1dw820r-2 no-wrap OrderTable__CellValue-sc-1dw820r-3 icoZsW">{}</div>
                 </div>
                 <div className="OrderTable__CellWrapper-sc-1dw820r-4 hdJLSn">
                     <div className="OrderTable__CellLabel-sc-1dw820r-1 dOpsoI"><span>Ngày giao hàng</span></div>
