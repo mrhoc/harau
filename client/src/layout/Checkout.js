@@ -1,13 +1,25 @@
 import React, { useState } from 'react'
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { AppContext } from '../providers/Index';
 import { useContext } from 'react';
-import { DatePicker, Space } from 'antd';
+import { DatePicker, Space,notification } from 'antd';
 import axios from 'axios';
+import Moment from 'moment';
 const Checkout = () => {
-    const [deliveryInfoTime, setdeliveryInfoTime] = useState(new Date());
+    const navigate=useNavigate()
+    const [deliveryInfoTime, setdeliveryInfoTime] = useState(null);
     var token = localStorage.getItem('ajs_user_id')
     const { RangePicker } = DatePicker;
+    const openNotification = (des) => {
+        notification.open({
+          message: 'Thông báo',
+          description:
+            des,
+          onClick: () => {
+            console.log('Notification Clicked!');
+          },
+        });
+      };
     const onChange = (value, dateString) => {
 
 
@@ -20,6 +32,7 @@ const Checkout = () => {
     console.log(deliveryInfoTime);
     const useAppContext = useContext(AppContext)
     const { shopCart,user, setshopCart, products, setproducts, setcount, favorites, setfavorites, setreloadFoverites, reloadFoverites, currentUser } = useAppContext;
+
     const hanlePlus = (s, p) => {
         const index = [...products].findIndex(obj => obj.key === p.key);
         const index1 = [...favorites].findIndex(obj => obj.key === p.key);
@@ -140,7 +153,7 @@ const Checkout = () => {
     }
 
     const handleOrders = () => {
-
+        
        var custom_shopcart=[...shopCart].map(item=>{
         return {...item,ProductCode:item.code,ProductName:item.name,amount:item.price*item.sl,quantity:item.sl}
        })
@@ -171,11 +184,14 @@ const Checkout = () => {
 
         axios(config)
             .then(function (response) {
-                console.log('đặt hàng thành công');
+                openNotification('Đặt hàng thành công');
+                setTimeout(() => {
+                    navigate('/orders')
+                }, 800);
 
             })
             .catch(function (error) {
-                console.log(error);
+                openNotification('Vui lòng nhập ngày giao hàng!');
             });
     }
 
@@ -203,11 +219,13 @@ const Checkout = () => {
                             </div>
                             <div className="StepCol-sc-1dfs1l2-0 CheckoutStep1__StepCol-k6o3b0-1 bBHXhC">
                                 <div className="Label-sc-1t6hh05-0 duoMBh"><span>Ngày giao hàng</span></div>
-                                <div className="Value-sc-15o9mgu-0 eKRzIr">
+                                <div className="Value-sc-15o9mgu-0 eKRzIr" style={{marginTop:'5px'}}>
+                                    
                                     <Space direction="vertical" size={12}>
-                                        <DatePicker showTime onChange={onChange} onOk={onOk} />
+                                        <DatePicker placeholder={Moment().format('DD-MM-YYYY')} showNow showTime onChange={onChange} onOk={onOk} />
 
                                     </Space>
+                                    {/* <span style={{color:'red'}}>{deliveryInfoTime??'Hãy nhập ngày giao hàng'}</span> */}
                                 </div>
                             </div>
                             {/* <div className="StepCol-sc-1dfs1l2-0 CheckoutStep1__StepCol-k6o3b0-1 bBHXhC">
