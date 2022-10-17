@@ -9,10 +9,25 @@ import axios from 'axios';
 function App() {
   var token=localStorage.getItem('ajs_user_id')
   const useAppContext = useContext(AppContext)
-  const {setproducts, setproductsCat,setuser,user,favorites,currentUser,products } = useAppContext;
+  const {setproducts, setproductsCat,setuser,user,favorites,currentUser,products,setfavorites,reloadFoverites } = useAppContext;
   
   
-
+  useEffect(() => {
+    var config = {
+      method: 'get',
+      url: '/api/wishlist',
+      headers: { Authorization: `Bearer ${token}` }
+    };
+    axios(config)
+      .then(function (response) {
+        let dt = response.data;
+   
+        setfavorites(dt.map(obj=>({...obj,sl:0})))
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [reloadFoverites]);
 
   useEffect(() => {
     var config = {

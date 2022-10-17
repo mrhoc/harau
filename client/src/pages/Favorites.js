@@ -9,22 +9,7 @@ const Favorites=()=>{
     const useAppContext = useContext(AppContext)
     const { currentUser,favorites, setfavorites,reloadFoverites } = useAppContext;
 
-    useEffect(() => {
-        var config = {
-          method: 'get',
-          url: '/api/wishlist',
-          headers: { Authorization: `Bearer ${token}` }
-        };
-        axios(config)
-          .then(function (response) {
-            let dt = response.data;
-       
-            setfavorites(dt.map(obj=>({...obj,sl:0})))
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      }, [reloadFoverites]);
+   
       
     console.log('favorites',favorites);
  

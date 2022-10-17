@@ -1,125 +1,190 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from "react-router-dom";
 import { AppContext } from '../providers/Index';
 import { useContext } from 'react';
+import { DatePicker, Space } from 'antd';
+import axios from 'axios';
 const Checkout = () => {
+    const [deliveryInfoTime, setdeliveryInfoTime] = useState();
+    var token = localStorage.getItem('ajs_user_id')
+    const { RangePicker } = DatePicker;
+    const onChange = (value, dateString) => {
+
+
+    };
+    const onOk = (value) => {
+        setdeliveryInfoTime(value.toISOString())
+
+
+    };
+
     const useAppContext = useContext(AppContext)
-    const { shopCart,setshopCart,products,setproducts,setcount } = useAppContext;
-    
-    const hanlePlus=(s,p)=>{
-        const index=[...products].findIndex(obj=>obj.key===p.key);
-        var new_sl=products[index].sl;
-        if(s=='plus'){
-            setproducts([...products],products[index].sl+=1);
+    const { shopCart,user, setshopCart, products, setproducts, setcount, favorites, setfavorites, setreloadFoverites, reloadFoverites, currentUser } = useAppContext;
+    const hanlePlus = (s, p) => {
+        const index = [...products].findIndex(obj => obj.key === p.key);
+        const index1 = [...favorites].findIndex(obj => obj.key === p.key);
+        var new_sl = products[index].sl;
+        var new_sl1 = favorites[index].sl;
+
+        if (s == 'plus') {
+            setproducts([...products], products[index].sl += 1);
         }
-        else{
-            if(new_sl>=2){
-                setproducts([...products],products[index].sl-=1);
+        else {
+            if (new_sl >= 2) {
+                setproducts([...products], products[index].sl -= 1);
             }
-            else{
-                setproducts([...products],products[index].sl=1)
+            else {
+                setproducts([...products], products[index].sl = 1)
             }
-          
+            if (new_sl1 >= 2) {
+                setfavorites([...favorites], favorites[index].sl -= 1);
+            }
+            else {
+                setfavorites([...favorites], favorites[index].sl = 1)
+            }
+
         }
-        const cart=[...products].filter(i=>i.sl>0)
-        setshopCart(cart); 
-        
+        const cart = [...products].filter(i => i.sl > 0)
+        setshopCart(cart);
+
     }
-
-    const hanldeRemove=(item)=>{
+  
+    const hanldeRemove = (item) => {
         console.log(item.key);
-       
-      
 
-        let index=[...shopCart].findIndex(i=>i.key===item.key);
-        let index2=[...products].findIndex(i=>i.key===item.key);
-        if(index!==-1){
+
+
+        let index = [...shopCart].findIndex(i => i.key === item.key);
+        let index2 = [...products].findIndex(i => i.key === item.key);
+        let index3 = [...favorites].findIndex(i => i.key === item.key);
+        if (index !== -1) {
             console.log(1);
-            let removeCart=[...shopCart];
-            setproducts([...products],products[index2].sl=0)
-            removeCart.splice(index,1)
+            let removeCart = [...shopCart];
+            setproducts([...products], products[index2].sl = 0)
+            setfavorites([...favorites], favorites[index2].sl = 0);
+            setreloadFoverites(!reloadFoverites);
+            removeCart.splice(index, 1)
             setshopCart(removeCart)
         }
-     
+
     }
 
-    
-    const handleRemoveAll=()=>{
-        const new_product=[...products];
-        new_product.map(item=>{
-            item.sl=0;
+    const handleRemoveAll = () => {
+        const new_product = [...products];
+        const new_product1 = [...favorites];
+        new_product.map(item => {
+            item.sl = 0;
             return item
         });
-    
+        new_product1.map(item => {
+            item.sl = 0;
+            return item
+        });
+
         setproducts([...new_product])
+        setfavorites([...new_product1])
         setshopCart([])
     }
-
-
-    const tong_tien=()=>{
-        let sum=[...shopCart].reduce((total,curValue)=>{
-            return total+curValue.sl*curValue.price
-        },0)
+    const tong_tien = () => {
+        let sum = [...shopCart].reduce((total, curValue) => {
+            return total + curValue.sl * curValue.price
+        }, 0)
         return sum.toLocaleString();
-        
+
     }
 
-    console.log(shopCart);
 
-    
-
-    const renderShopCart=()=>{
-        return [...shopCart].map(item=>{
+    const renderShopCart = () => {
+        return [...shopCart].map(item => {
             return <>
                 <tr className="StepItem__TableRow-sc-17m0775-4 OrderTable__TableRow-sc-1eckcw9-2 dNzToN">
-                                <td className="StepItem__TableCell-sc-17m0775-3 OrderTable__TableCell-sc-1eckcw9-1 hLshwS">
-                                    <div className="OrderTable__ImageWrapper-sc-1eckcw9-9 cGrmIw"><img loading="lazy" src={item.mainImage} alt={item.name} className="OrderTable__ItemImage-sc-1eckcw9-11 cseAdn" />
-                                    </div>
-                                </td>
-                                <td colSpan={2} className="StepItem__TableCell-sc-17m0775-3 OrderTable__TableCell-sc-1eckcw9-1 jAgyWF"><a href="/products/37895495-80a1-425c-8b41-08ff41cb1977" target="_blank">
-                                    <div className="Value-sc-15o9mgu-0 eKRzIr">
-                                        <div className="Value__Description-sc-15o9mgu-2 hemrKx">{item.name}</div>
-                                    </div>
-                                </a></td>
-                                <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS"><span className="Money-doxtx5-0 brYFgQ">{item.price.toLocaleString()}đ</span><span className="OrderTable__NoWrapText-sc-1eckcw9-5 fwXcGl">/Kg </span></td>
-                                <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS">
-                                    <div className="QuantityInput__QuantityInputContainer-sc-1nd1l3z-0 cHinwM">
-                                        <div className="QuantityWrapper-zx68x-0 cnWqKW">
-                                            <button data-test="minus-button" type="button" onClick={()=>{hanlePlus('minus',item)}} className="ant-btn Button-jgr7l8-0 minus QuantityButton-sc-1rjirov-0 hkvVgv ant-btn-round ant-btn-sm ant-btn-icon-only">
-                                                <i aria-label="icon: minus" className="anticon anticon-minus">
-                                                    <svg viewBox="64 64 896 896" focusable="false" className data-icon="minus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
-                                                        <path d="M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z" />
-                                                    </svg>
-                                                </i></button>
-                                            <input data-test="quantity-input" type="text" min={0} className="QuantityInnerInput-sc-1i1jla2-0 hCeYQQ" value={item.sl} style={{ transition: 'opacity 0.2s ease 0s', backgroundColor: 'rgb(250, 250, 250)', color: 'inherit', fontSize: 16, width: 44 }} />
-                                            <button data-test="plus-button" type="button" onClick={()=>{hanlePlus('plus',item)}} className="ant-btn Button-jgr7l8-0 plus QuantityButton-sc-1rjirov-0 eYEupy ant-btn-round ant-btn-sm ant-btn-icon-only">
-                                                <i aria-label="icon: plus" className="anticon anticon-plus">
-                                                    <svg viewBox="64 64 896 896" focusable="false" className data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
-                                                        <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z" />
-                                                        <path d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z" />
-                                                    </svg>
-                                                </i></button>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS"><span className="Money-doxtx5-0 brYFgQ">{(item.price*item.sl).toLocaleString()}đ</span>&nbsp;<span className="OrderTable__NoWrapText-sc-1eckcw9-5 fwXcGl">(0% VAT)</span>
-                                </td>
-                                <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS">
-                                    <button type="button" onClick={()=>{hanldeRemove(item)}} className="ant-btn Button-jgr7l8-0 OrderTable__Button-sc-1eckcw9-3 hfwshL ant-btn-secondary ant-btn-circle ant-btn-sm ant-btn-icon-only ant-btn-background-ghost" style={{ color: 'rgba(0, 0, 0, 0.54)' }}><i aria-label="icon: delete" className="anticon anticon-delete">
-                                        <svg viewBox="64 64 896 896" focusable="false" className data-icon="delete" width="1em" height="1em" fill="currentColor" aria-hidden="true">
-                                            <path d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z" />
+                    <td className="StepItem__TableCell-sc-17m0775-3 OrderTable__TableCell-sc-1eckcw9-1 hLshwS">
+                        <div className="OrderTable__ImageWrapper-sc-1eckcw9-9 cGrmIw"><img loading="lazy" src={item.mainImage} alt={item.name} className="OrderTable__ItemImage-sc-1eckcw9-11 cseAdn" />
+                        </div>
+                    </td>
+                    <td colSpan={2} className="StepItem__TableCell-sc-17m0775-3 OrderTable__TableCell-sc-1eckcw9-1 jAgyWF"><a href="/products/37895495-80a1-425c-8b41-08ff41cb1977" target="_blank">
+                        <div className="Value-sc-15o9mgu-0 eKRzIr">
+                            <div className="Value__Description-sc-15o9mgu-2 hemrKx">{item.name}</div>
+                        </div>
+                    </a></td>
+                    <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS"><span className="Money-doxtx5-0 brYFgQ">{item.price.toLocaleString()}đ</span><span className="OrderTable__NoWrapText-sc-1eckcw9-5 fwXcGl">/Kg </span></td>
+                    <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS">
+                        <div className="QuantityInput__QuantityInputContainer-sc-1nd1l3z-0 cHinwM">
+                            <div className="QuantityWrapper-zx68x-0 cnWqKW">
+                                <button data-test="minus-button" type="button" onClick={() => { hanlePlus('minus', item) }} className="ant-btn Button-jgr7l8-0 minus QuantityButton-sc-1rjirov-0 hkvVgv ant-btn-round ant-btn-sm ant-btn-icon-only">
+                                    <i aria-label="icon: minus" className="anticon anticon-minus">
+                                        <svg viewBox="64 64 896 896" focusable="false" className data-icon="minus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                                            <path d="M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z" />
                                         </svg>
                                     </i></button>
-                                </td>
-                            </tr>
+                                <input data-test="quantity-input" type="text" min={0} className="QuantityInnerInput-sc-1i1jla2-0 hCeYQQ" value={item.sl} style={{ transition: 'opacity 0.2s ease 0s', backgroundColor: 'rgb(250, 250, 250)', color: 'inherit', fontSize: 16, width: 44 }} />
+                                <button data-test="plus-button" type="button" onClick={() => { hanlePlus('plus', item) }} className="ant-btn Button-jgr7l8-0 plus QuantityButton-sc-1rjirov-0 eYEupy ant-btn-round ant-btn-sm ant-btn-icon-only">
+                                    <i aria-label="icon: plus" className="anticon anticon-plus">
+                                        <svg viewBox="64 64 896 896" focusable="false" className data-icon="plus" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                                            <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z" />
+                                            <path d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z" />
+                                        </svg>
+                                    </i></button>
+                            </div>
+                        </div>
+                    </td>
+                    <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS"><span className="Money-doxtx5-0 brYFgQ">{(item.price * item.sl).toLocaleString()}đ</span>&nbsp;<span className="OrderTable__NoWrapText-sc-1eckcw9-5 fwXcGl">(0% VAT)</span>
+                    </td>
+                    <td className="StepItem__TableCell-sc-17m0775-3 hideOnMobile OrderTable__TableCell-sc-1eckcw9-1 hLshwS">
+                        <button type="button" onClick={() => { hanldeRemove(item) }} className="ant-btn Button-jgr7l8-0 OrderTable__Button-sc-1eckcw9-3 hfwshL ant-btn-secondary ant-btn-circle ant-btn-sm ant-btn-icon-only ant-btn-background-ghost" style={{ color: 'rgba(0, 0, 0, 0.54)' }}><i aria-label="icon: delete" className="anticon anticon-delete">
+                            <svg viewBox="64 64 896 896" focusable="false" className data-icon="delete" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                                <path d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z" />
+                            </svg>
+                        </i></button>
+                    </td>
+                </tr>
             </>
         })
     }
+
+    const handleOrders = () => {
+
+        var payload_items = JSON.stringify(shopCart);
+    
+        var data = JSON.stringify({
+            "customerInfo": user,
+            "deliveryInfo": {
+                "address": user.address,
+                "time": deliveryInfoTime,
+                "note": "string"
+            },
+            "paymentInfo": {
+                "totalAmount": tong_tien(),
+                "paymentMethod": 1,
+                "totalDiscountAmount": 0,
+                "totalPaymentAmount": tong_tien()
+            },
+            "items": shopCart
+        });
+        console.log(data);
+
+        var config = {
+            method: 'post',
+            url: '/api/orders',
+            headers: { Authorization: `Bearer ${token}` },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                console.log('đặt hàng thành công');
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     return <div>
         <div className="CheckoutPage__Container-sc-10rj4ea-0 EalTZ">
             <div className="PageHeader__Container-sc-19x4r8h-1 kahPTg"><h2 className="PageHeader__Header-sc-19x4r8h-0 jTfioR"><span>Đặt hàng</span>
             </h2></div>
-            {shopCart.length==0?<span style={{color:'red'}}>Không có sản phẩm nào trong giỏ hàng</span>:<div className="StepContainer-sc-193hmep-0 ldsFAs">
+            {shopCart.length == 0 ? <span style={{ color: 'red' }}>Không có sản phẩm nào trong giỏ hàng</span> : <div className="StepContainer-sc-193hmep-0 ldsFAs">
                 {/* <div className="StepItem__UnderMOQ-sc-17m0775-6 bfVtZC"><span>Đơn hàng dưới giá trị tối thiểu</span></div> */}
                 <div className="StepItem-sc-17m0775-7 CheckoutStep1__StepItem-k6o3b0-0 icsiSe">
                     <div className="StepRow__StepBox-sc-7s4xr1-0 CheckoutStep1__StepBox-k6o3b0-2 iPSYdF">
@@ -137,10 +202,15 @@ const Checkout = () => {
                                     HARAU
                                 </div>
                             </div>
-                            {/* <div className="StepCol-sc-1dfs1l2-0 CheckoutStep1__StepCol-k6o3b0-1 bBHXhC">
-                                <div className="Label-sc-1t6hh05-0 duoMBh"><span>Đơn tối thiểu</span></div>
-                                <div className="Value-sc-15o9mgu-0 eKRzIr"><span className="Money-doxtx5-0 brYFgQ">300,000đ</span></div>
-                            </div> */}
+                            <div className="StepCol-sc-1dfs1l2-0 CheckoutStep1__StepCol-k6o3b0-1 bBHXhC">
+                                <div className="Label-sc-1t6hh05-0 duoMBh"><span>Thời gian giao hàng</span></div>
+                                <div className="Value-sc-15o9mgu-0 eKRzIr">
+                                    <Space direction="vertical" size={12}>
+                                        <DatePicker showTime onChange={onChange} onOk={onOk} />
+
+                                    </Space>
+                                </div>
+                            </div>
                             {/* <div className="StepCol-sc-1dfs1l2-0 CheckoutStep1__StepCol-k6o3b0-1 bBHXhC">
                                 <div className="Label-sc-1t6hh05-0 duoMBh"><span>Thành tiền</span></div>
                                 <div color="#FE5043" className="Value-sc-15o9mgu-0 iGZmDm"><span className="Money-doxtx5-0 brYFgQ">90,000đ</span>
@@ -166,7 +236,7 @@ const Checkout = () => {
                                 <td className="StepItem__TableCell-sc-17m0775-3 OrderTable__TableCell-sc-1eckcw9-1 hLshwS">
                                     <div className="Label-sc-1t6hh05-0 duoMBh"><span>Tổng tiền (có VAT)</span></div>
                                 </td>
-                                <td className="StepItem__TableCell-sc-17m0775-3 OrderTable__TableCell-sc-1eckcw9-1 hLshwS"><a href="javascript:void(0)" style={{ color: 'rgb(254, 80, 67)', whiteSpace: 'nowrap' }}><span onClick={()=>{handleRemoveAll()}}>Bỏ hết</span></a></td>
+                                <td className="StepItem__TableCell-sc-17m0775-3 OrderTable__TableCell-sc-1eckcw9-1 hLshwS"><a href="javascript:void(0)" style={{ color: 'rgb(254, 80, 67)', whiteSpace: 'nowrap' }}><span onClick={() => { handleRemoveAll() }}>Bỏ hết</span></a></td>
                             </tr>
                         </thead>
                         <tbody className="StepItem__TableBody-sc-17m0775-2 OrderTable__TableBody-sc-1eckcw9-0 bxhGmc">
@@ -181,15 +251,13 @@ const Checkout = () => {
                             <div style={{ flex: '1 1 0%' }} />
                             <div className="Value-sc-15o9mgu-0 eKRzIr"><span className="Money-doxtx5-0 brYFgQ">{tong_tien()}đ</span></div>
                         </div>
-                        <div className="Footer__ButtonWrapper-sc-17r70f1-1 eltBLd">
-                            <Link to={'/market'} className="ant-btn Button-jgr7l8-0 epExKW ant-btn-secondary"><span>Huỷ</span></Link>
-                            <div style={{ width: '6pt' }} />
-                            <Link to={'/checkout/step/2'} className="ant-btn Button-jgr7l8-0 iPsOaJ ant-btn-primary"><span>Tiếp tục</span></Link>
-                        </div>
+                        <div className="Footer__ButtonWrapper-sc-17r70f1-1 eltBLd" style={{ 'justify-content': 'flex-end' }}>
+
+                            <div className="ant-btn Button-jgr7l8-0 iPsOaJ ant-btn-primary" onClick={() => { handleOrders() }}><span>Đặt hàng</span></div>  </div>
                     </div>
                 </div>
             </div>}
-            
+
         </div>
     </div>
 

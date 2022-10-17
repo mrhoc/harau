@@ -79,17 +79,17 @@ const ProductsItem = ({ product }) => {
         if(currentUser.userName){
             if(s==='plus'){
                 setproducts([...products],products[index].sl+=1);
-                // setfavorites([...favorites],favorites[index2].sl+=1);
+                setfavorites([...favorites],favorites[index2].sl+=1);
                 
             }
             else{
                 if(new_sl>1){
                     setproducts([...products],products[index].sl-=1);
-                    // setfavorites([...favorites],favorites[index2].sl-=1);
+                    setfavorites([...favorites],favorites[index2].sl-=1);
                 }
                 else{
                     setproducts([...products],products[index].sl=0)
-                    // setfavorites([...favorites],favorites[index2].sl=0)
+                    setfavorites([...favorites],favorites[index2].sl=0)
                 }
               
             }
