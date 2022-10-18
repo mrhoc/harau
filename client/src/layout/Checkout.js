@@ -11,9 +11,11 @@ const Checkout = () => {
 
     const [deliveryInfoTime, setdeliveryInfoTime] = useState(()=>{
         var a = new Date((new Date()).valueOf() + 1000*3600*24);
-
-        return a.toISOString()
+        a.setHours(7);
+        a.setMinutes(0);
+        return a.toISOString();
     });
+    console.log(deliveryInfoTime);
     var token = localStorage.getItem('ajs_user_id')
     const { RangePicker } = DatePicker;
     const openNotification = (des) => {
@@ -228,7 +230,7 @@ const Checkout = () => {
                                 <div className="Value-sc-15o9mgu-0 eKRzIr" style={{marginTop:'5px'}}>
                                     
                                     <Space direction="vertical" size={12}>
-                                        <DatePicker placeholder={Moment(deliveryInfoTime).format('DD-MM-YYYY')} showNow showTime onChange={onChange} onOk={onOk} />
+                                        <DatePicker placeholder={Moment(deliveryInfoTime).format('DD-MM-YYYY H:s')} showNow showTime onChange={onChange} onOk={onOk} />
 
                                     </Space>
                                     {/* <span style={{color:'red'}}>{deliveryInfoTime??'Hãy nhập ngày giao hàng'}</span> */}
