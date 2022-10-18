@@ -42,7 +42,7 @@ const OrdersDetail = () => {
                     <div className="ant-card-body">
                         <div className="ant-row" style={{ marginLeft: '-4px', marginRight: '-4px', marginBottom: '10pt' }}>
                             <div className="ant-col ant-col-24" style={{ paddingLeft: 4, paddingRight: 4 }}>
-                                <div className="OrderSummary__InfoRow-ugckj3-0 cVHuBw" style={{ width: '100%', justifyContent: 'space-between' }}><a href="/suppliers/KAMEREO"><h3 className="OrderSummary__SupplierName-ugckj3-3 irPdAO">KAMEREO</h3></a>
+                                <div className="OrderSummary__InfoRow-ugckj3-0 cVHuBw" style={{ width: '100%', justifyContent: 'space-between' }}><a href="#"><h3 className="OrderSummary__SupplierName-ugckj3-3 irPdAO">HARAU</h3></a>
                                     <button title type="button" className="ant-btn Button-jgr7l8-0 iPsOaJ ant-btn-primary ant-btn-background-ghost" ant-click-animating-without-extra-node="false"><i aria-label="icon: printer" className="anticon anticon-printer">
                                         <svg viewBox="64 64 896 896" focusable="false" className data-icon="printer" width="1em" height="1em" fill="currentColor" aria-hidden="true">
                                             <path d="M820 436h-40c-4.4 0-8 3.6-8 8v40c0 4.4 3.6 8 8 8h40c4.4 0 8-3.6 8-8v-40c0-4.4-3.6-8-8-8zm32-104H732V120c0-4.4-3.6-8-8-8H300c-4.4 0-8 3.6-8 8v212H172c-44.2 0-80 35.8-80 80v328c0 17.7 14.3 32 32 32h168v132c0 4.4 3.6 8 8 8h424c4.4 0 8-3.6 8-8V772h168c17.7 0 32-14.3 32-32V412c0-44.2-35.8-80-80-80zM360 180h304v152H360V180zm304 664H360V568h304v276zm200-140H732V500H292v204H160V412c0-6.6 5.4-12 12-12h680c6.6 0 12 5.4 12 12v292z" />
