@@ -5,9 +5,15 @@ import { useContext } from 'react';
 import { DatePicker, Space,notification } from 'antd';
 import axios from 'axios';
 import Moment from 'moment';
+import moment from 'moment';
 const Checkout = () => {
-    const navigate=useNavigate()
-    const [deliveryInfoTime, setdeliveryInfoTime] = useState(null);
+    const navigate=useNavigate();
+
+    const [deliveryInfoTime, setdeliveryInfoTime] = useState(()=>{
+        var a = new Date((new Date()).valueOf() + 1000*3600*24);
+
+        return a.toISOString()
+    });
     var token = localStorage.getItem('ajs_user_id')
     const { RangePicker } = DatePicker;
     const openNotification = (des) => {
@@ -29,7 +35,7 @@ const Checkout = () => {
 
 
     };
-    console.log(deliveryInfoTime);
+    
     const useAppContext = useContext(AppContext)
     const { shopCart,user, setshopCart, products, setproducts, setcount, favorites, setfavorites, setreloadFoverites, reloadFoverites, currentUser } = useAppContext;
 
@@ -173,7 +179,7 @@ const Checkout = () => {
             },
             "items": custom_shopcart
         });
-        console.log(data);
+        
 
         var config = {
             method: 'post',
@@ -222,7 +228,7 @@ const Checkout = () => {
                                 <div className="Value-sc-15o9mgu-0 eKRzIr" style={{marginTop:'5px'}}>
                                     
                                     <Space direction="vertical" size={12}>
-                                        <DatePicker placeholder={Moment().format('DD-MM-YYYY')} showNow showTime onChange={onChange} onOk={onOk} />
+                                        <DatePicker placeholder={Moment(deliveryInfoTime).format('DD-MM-YYYY')} showNow showTime onChange={onChange} onOk={onOk} />
 
                                     </Space>
                                     {/* <span style={{color:'red'}}>{deliveryInfoTime??'Hãy nhập ngày giao hàng'}</span> */}

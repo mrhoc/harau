@@ -10,7 +10,7 @@ const Orders = () => {
     const { orders, setorders,setordersKey } = useAppContext;
     useEffect(() => {
         let today=new Date().toISOString()
-        console.log(today);
+       
         var config = {
             method: 'get',
             url: `/api/orders?From=2015-03-04T00:00:00.000&To=${today}`,
@@ -32,7 +32,7 @@ const Orders = () => {
 
         };
     }, []);
-    console.log(orders);
+
     const renderOrders = () => {
         return orders && orders.map(order =>
             <Link to={`/orders/${order.key}`} className="OrderTable__OrderRowWrapper-sc-1dw820r-5 bhmBvK" onClick={()=>{setordersKey(order.key)}}>

@@ -9,13 +9,6 @@ const Favorites=()=>{
     const useAppContext = useContext(AppContext)
     const { currentUser,favorites, setfavorites,reloadFoverites,products } = useAppContext;
 
-    let yFilter  = favorites.map(itemY => { return itemY.key; });
-    let filteredX = products.filter(itemX => yFilter.includes(itemX.key));
-    // const new_dt=filteredX.map()
-    console.log(filteredX);
-      
-    // console.log('favorites',favorites);
- 
     return <>   
         <div className="PageHeader__Container-sc-19x4r8h-1 fVgVuB">
                 <h2 className="PageHeader__Header-sc-19x4r8h-0 jTfioR">Sản phẩm yêu thích</h2>

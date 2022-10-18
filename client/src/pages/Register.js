@@ -7,6 +7,7 @@ import adea69c8d35c1cfa32ee173db7ac457b from '../assets/images/adea69c8d35c1cfa3
 import a1951685fa3474f6eb8c306adbe6204a from '../assets/images/a1951685fa3474f6eb8c306adbe6204a.png'
 import ba2622d292e9341b265ded7245853198 from '../assets/images/ba2622d292e9341b265ded7245853198.png'
 import a482c967e50fef21791147c113f4a4afb from '../assets/images/a482c967e50fef21791147c113f4a4afb.png'
+import bg from '../assets/images/bg.jpg'
 import { Button, Checkbox, Form, Input,notification } from 'antd';
 
 const { TextArea } = Input;
@@ -182,7 +183,7 @@ const Register = () => {
                         </div>
                     </div>
                 </div>
-                <div className="GateLayout__Bg-cr7ybx-2 fDxdCa"><img src={adea69c8d35c1cfa32ee173db7ac457b} className="GateLayout__ImageTopLeft-cr7ybx-3 hHcaRl" /><img src={a1951685fa3474f6eb8c306adbe6204a} className="GateLayout__ImageTopRight-cr7ybx-4 eZkJsz" /><img src={ba2622d292e9341b265ded7245853198} className="GateLayout__ImageBottomLeft-cr7ybx-5 hwiqXA" /><img src={a482c967e50fef21791147c113f4a4afb} className="GateLayout__ImageBottomRight-cr7ybx-6 ioIsJo" /></div>
+                <div className="GateLayout__Bg-cr7ybx-2 fDxdCa"><img src={bg} className="GateLayout__ImageTopLeft-cr7ybx-3 hHcaRl" /><img src={a1951685fa3474f6eb8c306adbe6204a} className="GateLayout__ImageTopRight-cr7ybx-4 eZkJsz" /><img src={ba2622d292e9341b265ded7245853198} className="GateLayout__ImageBottomLeft-cr7ybx-5 hwiqXA" /><img src={a482c967e50fef21791147c113f4a4afb} className="GateLayout__ImageBottomRight-cr7ybx-6 ioIsJo" /></div>
             </div>
         </div>
     );

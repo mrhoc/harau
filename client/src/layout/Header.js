@@ -97,7 +97,7 @@ const Header = () => {
                         </div>
                     </Link>
                 </nav>
-                <nav className="TopNav__MiddleNav-sc-1g6u0p6-18 dvueth">
+                {(window.location.pathname=='/signin' || window.location.pathname=='/contact-us')?'':<nav className="TopNav__MiddleNav-sc-1g6u0p6-18 dvueth">
                     <div className="TopNav__InputContainer-sc-1g6u0p6-12 ekjCbP">
                         <span
                             className="ant-input-search TopNav__AntdInput-sc-1g6u0p6-1 kNCBli ant-input-search-enter-button ant-input-search-default ant-input-group-wrapper">
@@ -106,7 +106,7 @@ const Header = () => {
                                 <span className="ant-input-group-addon" ><Link to='/search-result' id='btn-s'
                                     className="ant-btn ant-input-search-button ant-btn-primary"><span>Tìm</span></Link></span></span></span>
                     </div>
-                </nav>
+                </nav>}
                 
                 {currentUser.userName?
                 // login menu
